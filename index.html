@@ -778,7 +778,7 @@
       undoneTodos += dayTodos.filter(function(t) { return !t.done; }).length;
       if (!entries.length && !dayTodos.length) return;
       bodyHtml += '<div class="report-day"><div class="report-day-title">' + key + ' (' + dayNames[d.getDay()] + ')</div>';
-      entries.forEach(function(e) { bodyHtml += '<div class="report-entry-row">📄 ' + (e.title || '') + '</div>'; });
+      entries.forEach(function(e) { bodyHtml += '<div class="report-entry-row">📄 ' + (e.title || e.content || '(내용 없음)') + '</div>'; });
       dayTodos.forEach(function(t) { bodyHtml += '<div class="report-todo-row ' + (t.done ? '' : 'undone') + '">' + (t.done ? '✅' : '⬜') + ' ' + (t.text || '') + '</div>'; });
       bodyHtml += '</div>';
     });
