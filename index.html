@@ -959,9 +959,9 @@
     document.getElementById('statTodoDone').textContent = todos.filter(t => t.done).length;
     document.getElementById('statTodoLeft').textContent = todos.filter(t => !t.done).length;
     document.getElementById('statResource').textContent = resources.length;
-    const allEntries = Object.entries(diaryEntries).sort((a,b) => b[0].localeCompare(a[0])).flatMap(([date, entries]) => entries.map(e => ({ date, title: e.title || '(제목 없음)', ...e }))).slice(0, 5);
+    const allEntries = Object.entries(diaryEntries).sort((a,b) => b[0].localeCompare(a[0])).flatMap(([date, entries]) => entries.filter(e => e.title).map(e => ({ date, ...e }))).slice(0, 5);
     document.getElementById('recentList').innerHTML = allEntries.length
-      ? allEntries.map(e => `<div class="recent-item" onclick="goToDiary('${e.date}')"><div class="recent-date">${e.date}</div><div class="recent-text">${e.title || '(제목 없음)'}</div></div>`).join('')
+      ? allEntries.map(e => `<div class="recent-item" onclick="goToDiary('${e.date}')"><div class="recent-date">${e.date}</div><div class="recent-text">${e.title}</div></div>`).join('')
       : '<div class="search-empty">기록이 없습니다.</div>';
     const urgent = todos.filter(t => t.priority === 'urgent' && !t.done);
     const pl = { urgent: '🔴 긴급', normal: '🟡 보통', low: '🟢 낮음' };
