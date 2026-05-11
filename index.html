@@ -21,8 +21,6 @@
     --warning: #f59e0b;
   }
   body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-
-  /* ── 로그인 ── */
   #loginPage { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: linear-gradient(135deg, #1e2a45, #4f6ef7); }
   .login-box { background: white; border-radius: 16px; padding: 48px 40px; width: 100%; max-width: 400px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center; }
   .login-box h1 { font-size: 1.8rem; margin-bottom: 8px; }
@@ -32,8 +30,6 @@
   .login-box button { width: 100%; padding: 13px; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
   .login-box button:hover { background: var(--primary-d); }
   #loginError { color: var(--danger); font-size: 0.88rem; margin-top: 10px; display: none; }
-
-  /* ── 레이아웃 ── */
   #app { display: none; min-height: 100vh; }
   .layout { display: flex; min-height: 100vh; }
   .sidebar { width: 220px; background: var(--sidebar); color: white; display: flex; flex-direction: column; padding: 24px 0; position: fixed; top: 0; left: 0; height: 100vh; z-index: 100; overflow-y: auto; }
@@ -56,8 +52,6 @@
   .btn-danger:hover { background: var(--danger); color: white; }
   .btn-outline { background: white; color: var(--text); border: 1.5px solid var(--border); }
   .btn-outline:hover { background: var(--bg); }
-
-  /* ── 브리핑 모달 ── */
   .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 300; display: flex; align-items: center; justify-content: center; }
   .modal-bg.hidden { display: none; }
   .modal { background: white; border-radius: 20px; padding: 32px; width: 100%; max-width: 520px; box-shadow: 0 20px 60px rgba(0,0,0,0.25); }
@@ -65,13 +59,11 @@
   .modal-header h2 { font-size: 1.3rem; font-weight: 700; }
   .modal-close { background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--sub); }
   .briefing-section { margin-bottom: 18px; }
-  .briefing-section h4 { font-size: 0.88rem; font-weight: 700; color: var(--sub); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .briefing-section h4 { font-size: 0.88rem; font-weight: 700; color: var(--sub); margin-bottom: 8px; }
   .briefing-item { padding: 8px 12px; border-radius: 8px; background: var(--bg); font-size: 0.92rem; margin-bottom: 6px; }
   .briefing-item.urgent { background: #fee2e2; color: #991b1b; }
   .briefing-item.ok { background: #dcfce7; color: #166534; }
   .briefing-item.warn { background: #fef3c7; color: #92400e; }
-
-  /* ── 캘린더 ── */
   .cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
   .cal-header h2 { font-size: 1.2rem; font-weight: 700; }
   .cal-nav { display: flex; gap: 8px; }
@@ -89,8 +81,6 @@
   .cal-entry-chip { font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; background: #eef1ff; color: var(--primary); cursor: pointer; }
   .cal-entry-chip.urgent { background: #fee2e2; color: var(--danger); }
   .cal-entry-chip.todo-chip { background: #fef3c7; color: #92400e; }
-
-  /* ── 다이어리 패널 ── */
   .diary-panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
   .diary-panel-header h3 { font-size: 1rem; font-weight: 700; color: var(--primary); }
   .entry-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
@@ -108,8 +98,6 @@
   .new-entry-form textarea { width: 100%; min-height: 100px; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 0.92rem; resize: vertical; outline: none; transition: border-color 0.2s; font-family: inherit; margin-bottom: 8px; }
   .new-entry-form textarea:focus { border-color: var(--primary); }
   .form-actions { display: flex; justify-content: flex-end; gap: 8px; }
-
-  /* ── TODO ── */
   .todo-input-area { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; background: var(--bg); border-radius: 12px; padding: 16px; }
   .todo-input-row { display: flex; gap: 8px; }
   .todo-input-row input[type=text] { flex: 1; padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 0.95rem; outline: none; background: white; }
@@ -144,8 +132,6 @@
   .dday-badge.today-due { background: #fef3c7; color: #92400e; }
   .todo-item > button { background: none; border: none; color: var(--sub); cursor: pointer; font-size: 1.1rem; padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
   .todo-item > button:hover { color: var(--danger); background: #fee2e2; }
-
-  /* ── 자료실 ── */
   .resource-input { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
   .resource-input input { padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 0.95rem; outline: none; }
   .resource-input input:focus { border-color: var(--primary); }
@@ -157,8 +143,6 @@
   .resource-info p { font-size: 0.82rem; color: var(--sub); margin-top: 2px; }
   .resource-item button { background: none; border: none; color: var(--sub); cursor: pointer; font-size: 1.1rem; padding: 4px 8px; border-radius: 4px; }
   .resource-item button:hover { color: var(--danger); background: #fee2e2; }
-
-  /* ── 메모장 ── */
   .memo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
   .memo-card { background: #fffbeb; border-radius: 12px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); display: flex; flex-direction: column; gap: 10px; border-top: 4px solid var(--warning); }
   .memo-card.color-blue { background: #eff6ff; border-top-color: var(--primary); }
@@ -168,15 +152,13 @@
   .memo-card-content { font-size: 0.88rem; color: var(--text); border: none; background: transparent; outline: none; resize: none; width: 100%; min-height: 80px; font-family: inherit; line-height: 1.6; }
   .memo-card-footer { display: flex; justify-content: space-between; align-items: center; }
   .memo-card-date { font-size: 0.75rem; color: var(--sub); }
-  .memo-card-actions { display: flex; gap: 6px; }
+  .memo-card-actions { display: flex; gap: 6px; align-items: center; }
   .memo-color-btn { width: 16px; height: 16px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; transition: transform 0.15s; }
   .memo-color-btn:hover { transform: scale(1.2); }
   .memo-delete-btn { background: none; border: none; color: var(--sub); cursor: pointer; font-size: 0.9rem; }
   .memo-delete-btn:hover { color: var(--danger); }
   .memo-add-btn { display: flex; align-items: center; justify-content: center; background: var(--bg); border: 2px dashed var(--border); border-radius: 12px; padding: 32px; cursor: pointer; font-size: 2rem; color: var(--sub); transition: all 0.2s; }
   .memo-add-btn:hover { background: var(--border); color: var(--primary); }
-
-  /* ── 주간 리포트 ── */
   .report-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
   .report-week-nav { display: flex; gap: 8px; align-items: center; }
   .report-week-nav button { background: var(--bg); border: none; border-radius: 8px; padding: 6px 14px; cursor: pointer; font-size: 1rem; }
@@ -190,8 +172,6 @@
   .report-entry-row { font-size: 0.9rem; padding: 5px 8px; background: var(--bg); border-radius: 6px; margin-bottom: 4px; }
   .report-todo-row { font-size: 0.88rem; padding: 5px 8px; background: #dcfce7; border-radius: 6px; margin-bottom: 4px; color: #166534; }
   .report-todo-row.undone { background: #fef3c7; color: #92400e; }
-
-  /* ── 검색 ── */
   .search-bar { display: flex; gap: 8px; margin-bottom: 24px; }
   .search-bar input { flex: 1; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 1rem; outline: none; }
   .search-bar input:focus { border-color: var(--primary); }
@@ -201,8 +181,6 @@
   .search-result .s-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 2px; }
   .search-result .s-preview { font-size: 0.88rem; color: var(--sub); }
   .search-empty { text-align: center; color: var(--sub); padding: 40px 0; font-size: 0.95rem; }
-
-  /* ── 대시보드 ── */
   .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
   .stat-card { background: var(--card); border-radius: 14px; padding: 20px 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
   .stat-card .label { font-size: 0.85rem; color: var(--sub); margin-bottom: 8px; }
@@ -212,14 +190,12 @@
   .recent-item:hover { background: var(--border); }
   .recent-date { font-size: 0.8rem; color: var(--primary); font-weight: 700; min-width: 80px; }
   .recent-text { font-size: 0.9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
   .toast { position: fixed; bottom: 30px; right: 30px; background: #1e2a45; color: white; padding: 12px 24px; border-radius: 10px; font-size: 0.92rem; z-index: 9999; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
   .toast.show { opacity: 1; }
 </style>
 </head>
 <body>
 
-<!-- 로그인 -->
 <div id="loginPage">
   <div class="login-box">
     <h1>📋 업무 다이어리</h1>
@@ -231,7 +207,6 @@
   </div>
 </div>
 
-<!-- 오늘 브리핑 모달 -->
 <div class="modal-bg hidden" id="briefingModal">
   <div class="modal">
     <div class="modal-header">
@@ -245,7 +220,6 @@
   </div>
 </div>
 
-<!-- 메인 앱 -->
 <div id="app">
   <div class="layout">
     <aside class="sidebar">
@@ -265,7 +239,6 @@
     </aside>
     <main class="main">
 
-      <!-- 대시보드 -->
       <div class="page active" id="page-dashboard">
         <div class="page-title">🏠 대시보드</div>
         <div class="dashboard-grid">
@@ -284,7 +257,6 @@
         </div>
       </div>
 
-      <!-- 캘린더 -->
       <div class="page" id="page-calendar">
         <div class="page-title">📅 캘린더</div>
         <div class="card">
@@ -314,7 +286,6 @@
         </div>
       </div>
 
-      <!-- TODO -->
       <div class="page" id="page-todo">
         <div class="page-title">✅ TODO</div>
         <div class="card">
@@ -342,13 +313,11 @@
         </div>
       </div>
 
-      <!-- 메모장 -->
       <div class="page" id="page-memo">
         <div class="page-title">📝 메모장</div>
         <div class="memo-grid" id="memoGrid"></div>
       </div>
 
-      <!-- 자료실 -->
       <div class="page" id="page-resources">
         <div class="page-title">🗂️ 자료실</div>
         <div class="card">
@@ -362,7 +331,6 @@
         </div>
       </div>
 
-      <!-- 주간 리포트 -->
       <div class="page" id="page-report">
         <div class="page-title">📊 주간 리포트</div>
         <div class="card">
@@ -379,7 +347,6 @@
         </div>
       </div>
 
-      <!-- 검색 -->
       <div class="page" id="page-search">
         <div class="page-title">🔍 검색</div>
         <div class="card">
@@ -430,7 +397,6 @@
   let selectedPriority = 'normal';
   let reportWeekOffset = 0;
 
-  // ── 인증 ──
   onAuthStateChanged(auth, async (user) => {
     if (user) {
       currentUser = user;
@@ -455,9 +421,9 @@
     try { await signInWithEmailAndPassword(auth, email, pw); }
     catch(e) { err.style.display = 'block'; }
   };
+
   window.doLogout = async () => { await signOut(auth); };
 
-  // ── 데이터 로드 ──
   async function loadAll() {
     await Promise.all([loadDiaries(), loadTodos(), loadResources(), loadMemos()]);
   }
@@ -496,7 +462,6 @@
     renderMemos();
   }
 
-  // ── 브리핑 ──
   function showBriefing() {
     const today = getTodayKey();
     const todayTodos = todos.filter(t => t.dueDate === today && !t.done);
@@ -506,77 +471,48 @@
       return getDday(t.dueDate) < 0;
     });
     const hasEntry = !!(diaryEntries[today] && diaryEntries[today].length);
-
     let html = '';
-
-    // 오늘 날짜
-    html += `<div class="briefing-section">
-      <h4>📅 오늘</h4>
-      <div class="briefing-item ok">${today} (${['일','월','화','수','목','금','토'][new Date().getDay()]}요일)</div>
-    </div>`;
-
-    // 업무 기록 여부
-    html += `<div class="briefing-section">
-      <h4>📝 오늘 업무 기록</h4>
-      <div class="briefing-item ${hasEntry ? 'ok' : 'warn'}">${hasEntry ? `✅ ${diaryEntries[today].length}개 기록 있음` : '⚠️ 아직 오늘 업무 기록이 없어요!'}</div>
-    </div>`;
-
-    // 오늘 마감 TODO
+    html += `<div class="briefing-section"><h4>📅 오늘</h4><div class="briefing-item ok">${today} (${['일','월','화','수','목','금','토'][new Date().getDay()]}요일)</div></div>`;
+    html += `<div class="briefing-section"><h4>📝 오늘 업무 기록</h4><div class="briefing-item ${hasEntry ? 'ok' : 'warn'}">${hasEntry ? '✅ ' + diaryEntries[today].length + '개 기록 있음' : '⚠️ 아직 오늘 업무 기록이 없어요!'}</div></div>`;
     if (todayTodos.length) {
-      html += `<div class="briefing-section"><h4>📌 오늘 마감 TODO</h4>`;
-      todayTodos.forEach(t => {
-        html += `<div class="briefing-item ${t.priority === 'urgent' ? 'urgent' : 'warn'}">${t.priority === 'urgent' ? '🔴' : '🟡'} ${t.text}</div>`;
-      });
-      html += `</div>`;
+      html += '<div class="briefing-section"><h4>📌 오늘 마감 TODO</h4>';
+      todayTodos.forEach(t => { html += '<div class="briefing-item ' + (t.priority === 'urgent' ? 'urgent' : 'warn') + '">' + (t.priority === 'urgent' ? '🔴' : '🟡') + ' ' + t.text + '</div>'; });
+      html += '</div>';
     }
-
-    // 긴급 항목
     if (urgentTodos.length) {
-      html += `<div class="briefing-section"><h4>🔴 미완료 긴급 TODO</h4>`;
-      urgentTodos.forEach(t => {
-        html += `<div class="briefing-item urgent">🔴 ${t.text}${t.dueDate ? ` (${renderDdayText(t.dueDate)})` : ''}</div>`;
-      });
-      html += `</div>`;
+      html += '<div class="briefing-section"><h4>🔴 미완료 긴급 TODO</h4>';
+      urgentTodos.forEach(t => { html += '<div class="briefing-item urgent">🔴 ' + t.text + (t.dueDate ? ' (' + renderDdayText(t.dueDate) + ')' : '') + '</div>'; });
+      html += '</div>';
     }
-
-    // 기한 초과
     if (overdueTodos.length) {
-      html += `<div class="briefing-section"><h4>⚠️ 기한 초과 TODO</h4>`;
-      overdueTodos.forEach(t => {
-        html += `<div class="briefing-item urgent">⏰ ${t.text} (${renderDdayText(t.dueDate)})</div>`;
-      });
-      html += `</div>`;
+      html += '<div class="briefing-section"><h4>⚠️ 기한 초과 TODO</h4>';
+      overdueTodos.forEach(t => { html += '<div class="briefing-item urgent">⏰ ' + t.text + ' (' + renderDdayText(t.dueDate) + ')</div>'; });
+      html += '</div>';
     }
-
     if (!todayTodos.length && !urgentTodos.length && !overdueTodos.length && hasEntry) {
-      html += `<div class="briefing-item ok" style="margin-top:8px;">🎉 오늘 할 일도 없고 기록도 완료! 좋은 하루예요!</div>`;
+      html += '<div class="briefing-item ok" style="margin-top:8px;">🎉 오늘 할 일도 없고 기록도 완료! 좋은 하루예요!</div>';
     }
-
     document.getElementById('briefingContent').innerHTML = html;
     document.getElementById('briefingModal').classList.remove('hidden');
   }
 
-  window.closeBriefing = () => {
-    document.getElementById('briefingModal').classList.add('hidden');
-  };
+  window.closeBriefing = () => { document.getElementById('briefingModal').classList.add('hidden'); };
 
-  // ── 캘린더 ──
   window.changeMonth = (dir) => {
     calMonth += dir;
     if (calMonth > 11) { calMonth = 0; calYear++; }
     else if (calMonth < 0) { calMonth = 11; calYear--; }
     renderCalendar();
   };
-  window.goToday = () => {
-    calYear = new Date().getFullYear(); calMonth = new Date().getMonth(); renderCalendar();
-  };
+
+  window.goToday = () => { calYear = new Date().getFullYear(); calMonth = new Date().getMonth(); renderCalendar(); };
 
   function renderCalendar() {
     const months = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
-    document.getElementById('calTitle').textContent = `${calYear}년 ${months[calMonth]}`;
+    document.getElementById('calTitle').textContent = calYear + '년 ' + months[calMonth];
     const grid = document.getElementById('calGrid');
     grid.innerHTML = '';
-    ['일','월','화','수','목','금','토'].forEach(d => {
+    ['일','월','화','수','목','금','토'].forEach(function(d) {
       const el = document.createElement('div'); el.className = 'cal-day-name'; el.textContent = d; grid.appendChild(el);
     });
     const first = new Date(calYear, calMonth, 1).getDay();
@@ -587,53 +523,54 @@
     }
     for (let d = 1; d <= days; d++) {
       const el = document.createElement('div'); el.className = 'cal-day';
-      const key = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const key = calYear + '-' + String(calMonth+1).padStart(2,'0') + '-' + String(d).padStart(2,'0');
       if (today.getFullYear()===calYear && today.getMonth()===calMonth && today.getDate()===d) el.classList.add('today');
       if (currentDate === key) el.classList.add('selected');
       const numEl = document.createElement('div'); numEl.className = 'cal-day-num'; numEl.textContent = d;
       el.appendChild(numEl);
-      (diaryEntries[key] || []).slice(0, 2).forEach(entry => {
+      (diaryEntries[key] || []).slice(0, 2).forEach(function(entry) {
         const chip = document.createElement('div'); chip.className = 'cal-entry-chip';
-        chip.textContent = entry.title;
-        chip.onclick = e => { e.stopPropagation(); openDiary(key); };
+        chip.textContent = entry.title || '';
+        chip.onclick = function(e) { e.stopPropagation(); openDiary(key); };
         el.appendChild(chip);
       });
       if ((diaryEntries[key] || []).length > 2) {
         const more = document.createElement('div'); more.className = 'cal-entry-chip';
         more.style.cssText = 'background:#f3f4f6;color:#6b7280;';
-        more.textContent = `+${(diaryEntries[key] || []).length - 2}개 더`;
+        more.textContent = '+' + ((diaryEntries[key] || []).length - 2) + '개 더';
         el.appendChild(more);
       }
-      todos.filter(t => t.dueDate === key && !t.done).slice(0, 1).forEach(t => {
+      todos.filter(function(t) { return t.dueDate === key && !t.done; }).slice(0, 1).forEach(function(t) {
         const chip = document.createElement('div');
-        chip.className = `cal-entry-chip todo-chip ${t.priority === 'urgent' ? 'urgent' : ''}`;
-        chip.textContent = `📌 ${t.text.length > 8 ? t.text.substring(0,8)+'...' : t.text}`;
-        chip.onclick = e => { e.stopPropagation(); showPage('todo'); };
+        chip.className = 'cal-entry-chip todo-chip' + (t.priority === 'urgent' ? ' urgent' : '');
+        chip.textContent = '📌 ' + (t.text.length > 8 ? t.text.substring(0,8)+'...' : t.text);
+        chip.onclick = function(e) { e.stopPropagation(); showPage('todo'); };
         el.appendChild(chip);
       });
-      const todoCnt = todos.filter(t => t.dueDate === key && !t.done).length;
+      const todoCnt = todos.filter(function(t) { return t.dueDate === key && !t.done; }).length;
       if (todoCnt > 1) {
         const more = document.createElement('div'); more.className = 'cal-entry-chip todo-chip';
-        more.textContent = `+${todoCnt - 1}개 마감`;
+        more.textContent = '+' + (todoCnt - 1) + '개 마감';
         el.appendChild(more);
       }
-      el.onclick = () => openDiary(key);
+      el.onclick = function() { openDiary(key); };
       grid.appendChild(el);
     }
   }
 
-  window.openDiary = (key) => {
+  window.openDiary = function(key) {
     currentDate = key;
     renderCalendar();
     const panel = document.getElementById('diaryPanel');
     panel.style.display = 'block';
-    document.getElementById('diaryDateTitle').textContent = `📝 ${key}`;
+    document.getElementById('diaryDateTitle').textContent = '📝 ' + key;
     document.getElementById('entryTitle').value = '';
     document.getElementById('entryContent').value = '';
     renderEntryList();
     panel.scrollIntoView({ behavior: 'smooth' });
   };
-  window.closeDiary = () => {
+
+  window.closeDiary = function() {
     document.getElementById('diaryPanel').style.display = 'none';
     currentDate = null; renderCalendar();
   };
@@ -642,87 +579,81 @@
     const list = document.getElementById('entryList');
     const entries = diaryEntries[currentDate] || [];
     if (!entries.length) { list.innerHTML = '<div class="search-empty" style="padding:12px 0;">아직 기록이 없어요. 아래에서 추가해보세요!</div>'; return; }
-    list.innerHTML = entries.map(e => `
-      <div class="entry-item">
-        <div class="entry-item-header" onclick="toggleEntry('${e.id}')">
-          <span class="entry-title-text">📄 ${e.title}</span>
-          <button class="entry-delete-btn" onclick="event.stopPropagation(); deleteEntry('${e.id}')">✕</button>
-        </div>
-        <div class="entry-item-body" id="body-${e.id}">${e.content}</div>
-      </div>`).join('');
+    list.innerHTML = entries.map(function(e) {
+      return '<div class="entry-item"><div class="entry-item-header" onclick="toggleEntry(\'' + e.id + '\')"><span class="entry-title-text">📄 ' + (e.title || '') + '</span><button class="entry-delete-btn" onclick="event.stopPropagation(); deleteEntry(\'' + e.id + '\')">✕</button></div><div class="entry-item-body" id="body-' + e.id + '">' + (e.content || '') + '</div></div>';
+    }).join('');
   }
 
-  window.toggleEntry = (id) => {
-    const body = document.getElementById(`body-${id}`);
+  window.toggleEntry = function(id) {
+    const body = document.getElementById('body-' + id);
     if (body) body.classList.toggle('open');
   };
 
-  window.saveEntry = async () => {
+  window.saveEntry = async function() {
     if (!currentDate) return;
     const title = document.getElementById('entryTitle').value.trim();
     const content = document.getElementById('entryContent').value.trim();
     if (!title) return showToast('제목을 입력해주세요.');
     if (!content) return showToast('내용을 입력해주세요.');
-    const ref = await addDoc(collection(db, `users/${currentUser.uid}/diaries`), { date: currentDate, title, content, createdAt: new Date().toISOString() });
+    const ref = await addDoc(collection(db, 'users/' + currentUser.uid + '/diaries'), { date: currentDate, title: title, content: content, createdAt: new Date().toISOString() });
     if (!diaryEntries[currentDate]) diaryEntries[currentDate] = [];
-    diaryEntries[currentDate].push({ id: ref.id, date: currentDate, title, content });
+    diaryEntries[currentDate].push({ id: ref.id, date: currentDate, title: title, content: content });
     document.getElementById('entryTitle').value = '';
     document.getElementById('entryContent').value = '';
     renderEntryList(); renderCalendar(); renderDashboard();
     showToast('✅ 저장되었습니다!');
   };
 
-  window.deleteEntry = async (id) => {
+  window.deleteEntry = async function(id) {
     if (!confirm('삭제할까요?')) return;
-    await deleteDoc(doc(db, `users/${currentUser.uid}/diaries`, id));
-    diaryEntries[currentDate] = diaryEntries[currentDate].filter(e => e.id !== id);
+    await deleteDoc(doc(db, 'users/' + currentUser.uid + '/diaries', id));
+    diaryEntries[currentDate] = diaryEntries[currentDate].filter(function(e) { return e.id !== id; });
     if (!diaryEntries[currentDate].length) delete diaryEntries[currentDate];
     renderEntryList(); renderCalendar(); renderDashboard();
     showToast('🗑️ 삭제되었습니다.');
   };
 
-  // ── TODO ──
-  window.selectPriority = (p) => {
+  window.selectPriority = function(p) {
     selectedPriority = p;
-    ['urgent','normal','low'].forEach(k => {
-      const btn = document.getElementById(`pBtn-${k}`);
+    ['urgent','normal','low'].forEach(function(k) {
+      const btn = document.getElementById('pBtn-' + k);
       btn.className = 'priority-btn';
-      if (k === p) btn.classList.add(`selected-${k}`);
+      if (k === p) btn.classList.add('selected-' + k);
     });
   };
   selectPriority('normal');
 
-  window.addTodo = async () => {
+  window.addTodo = async function() {
     const input = document.getElementById('todoInput');
     const text = input.value.trim();
     const dueDate = document.getElementById('todoDueDate').value;
     if (!text) return;
     const id = Date.now().toString();
-    const todo = { text, done: false, priority: selectedPriority, dueDate: dueDate || '', createdAt: new Date().toISOString() };
-    await setDoc(doc(db, `users/${currentUser.uid}/todos`, id), todo);
-    todos.push({ id, ...todo });
+    const todo = { text: text, done: false, priority: selectedPriority, dueDate: dueDate || '', createdAt: new Date().toISOString() };
+    await setDoc(doc(db, 'users/' + currentUser.uid + '/todos', id), todo);
+    todos.push(Object.assign({ id: id }, todo));
     input.value = ''; document.getElementById('todoDueDate').value = '';
     selectPriority('normal'); renderTodos(); renderCalendar(); renderDashboard();
     showToast('✅ 추가되었습니다!');
   };
 
-  window.toggleTodo = async (id) => {
-    const todo = todos.find(t => t.id === id); if (!todo) return;
+  window.toggleTodo = async function(id) {
+    const todo = todos.find(function(t) { return t.id === id; }); if (!todo) return;
     todo.done = !todo.done;
-    await setDoc(doc(db, `users/${currentUser.uid}/todos`, id), todo);
+    await setDoc(doc(db, 'users/' + currentUser.uid + '/todos', id), todo);
     renderTodos(); renderDashboard();
   };
 
-  window.deleteTodo = async (id) => {
-    await deleteDoc(doc(db, `users/${currentUser.uid}/todos`, id));
-    todos = todos.filter(t => t.id !== id);
+  window.deleteTodo = async function(id) {
+    await deleteDoc(doc(db, 'users/' + currentUser.uid + '/todos', id));
+    todos = todos.filter(function(t) { return t.id !== id; });
     renderTodos(); renderCalendar(); renderDashboard();
     showToast('🗑️ 삭제되었습니다.');
   };
 
-  window.filterTodo = (f, btn) => {
+  window.filterTodo = function(f, btn) {
     todoFilter = f;
-    document.querySelectorAll('.todo-filter button').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.todo-filter button').forEach(function(b) { b.classList.remove('active'); });
     btn.classList.add('active'); renderTodos();
   };
 
@@ -736,9 +667,9 @@
   function renderDdayText(dueDate) {
     const diff = getDday(dueDate);
     if (diff === null) return '';
-    if (diff < 0) return `D+${Math.abs(diff)} 초과`;
+    if (diff < 0) return 'D+' + Math.abs(diff) + ' 초과';
     if (diff === 0) return 'D-Day';
-    return `D-${diff}`;
+    return 'D-' + diff;
   }
 
   function renderDdayBadge(dueDate) {
@@ -747,251 +678,209 @@
     let cls = 'dday-badge';
     if (diff < 0) cls += ' overdue';
     else if (diff === 0) cls += ' today-due';
-    return `<span class="${cls}">${renderDdayText(dueDate)} (${dueDate})</span>`;
+    return '<span class="' + cls + '">' + renderDdayText(dueDate) + ' (' + dueDate + ')</span>';
   }
 
   function renderTodos() {
     const list = document.getElementById('todoList');
-    let filtered = [...todos];
-    if (todoFilter === 'active') filtered = todos.filter(t => !t.done);
-    if (todoFilter === 'done') filtered = todos.filter(t => t.done);
-    if (todoFilter === 'urgent') filtered = todos.filter(t => t.priority === 'urgent' && !t.done);
+    let filtered = todos.slice();
+    if (todoFilter === 'active') filtered = todos.filter(function(t) { return !t.done; });
+    if (todoFilter === 'done') filtered = todos.filter(function(t) { return t.done; });
+    if (todoFilter === 'urgent') filtered = todos.filter(function(t) { return t.priority === 'urgent' && !t.done; });
     if (!filtered.length) { list.innerHTML = '<div class="search-empty">항목이 없습니다 🎉</div>'; return; }
     const pl = { urgent: '🔴 긴급', normal: '🟡 보통', low: '🟢 낮음' };
-    list.innerHTML = filtered.map(t => `
-      <div class="todo-item ${t.priority} ${t.done ? 'done' : ''}">
-        <input type="checkbox" ${t.done ? 'checked' : ''} onchange="toggleTodo('${t.id}')" />
-        <div class="todo-item-info">
-          <div class="todo-text">${t.text}</div>
-          <div class="todo-meta">
-            <span class="priority-badge ${t.priority}">${pl[t.priority]}</span>
-            ${renderDdayBadge(t.dueDate)}
-          </div>
-        </div>
-        <button onclick="deleteTodo('${t.id}')">✕</button>
-      </div>`).join('');
+    list.innerHTML = filtered.map(function(t) {
+      return '<div class="todo-item ' + t.priority + ' ' + (t.done ? 'done' : '') + '"><input type="checkbox" ' + (t.done ? 'checked' : '') + ' onchange="toggleTodo(\'' + t.id + '\')" /><div class="todo-item-info"><div class="todo-text">' + (t.text || '') + '</div><div class="todo-meta"><span class="priority-badge ' + t.priority + '">' + pl[t.priority] + '</span>' + renderDdayBadge(t.dueDate) + '</div></div><button onclick="deleteTodo(\'' + t.id + '\')">✕</button></div>';
+    }).join('');
   }
 
-  // ── 메모장 ──
   const memoColors = ['yellow', 'blue', 'green', 'pink'];
   const colorMap = { yellow: '', blue: 'color-blue', green: 'color-green', pink: 'color-pink' };
   const colorHex = { yellow: '#f59e0b', blue: '#4f6ef7', green: '#22c55e', pink: '#ec4899' };
 
-  window.addMemo = async () => {
+  window.addMemo = async function() {
     const id = Date.now().toString();
     const memo = { title: '', content: '', color: 'yellow', createdAt: new Date().toISOString() };
-    await setDoc(doc(db, `users/${currentUser.uid}/memos`, id), memo);
-    memos.unshift({ id, ...memo });
+    await setDoc(doc(db, 'users/' + currentUser.uid + '/memos', id), memo);
+    memos.unshift(Object.assign({ id: id }, memo));
     renderMemos();
   };
 
-  window.saveMemo = async (id) => {
-    const memo = memos.find(m => m.id === id); if (!memo) return;
-    memo.title = document.getElementById(`mTitle-${id}`).value;
-    memo.content = document.getElementById(`mContent-${id}`).value;
-    await setDoc(doc(db, `users/${currentUser.uid}/memos`, id), memo);
+  window.saveMemo = async function(id) {
+    const memo = memos.find(function(m) { return m.id === id; }); if (!memo) return;
+    const titleEl = document.getElementById('mTitle-' + id);
+    const contentEl = document.getElementById('mContent-' + id);
+    if (titleEl) memo.title = titleEl.value;
+    if (contentEl) memo.content = contentEl.value;
+    await setDoc(doc(db, 'users/' + currentUser.uid + '/memos', id), memo);
     showToast('✅ 메모 저장됨!');
   };
 
-  window.changeMemoColor = async (id, color) => {
-    const memo = memos.find(m => m.id === id); if (!memo) return;
+  window.changeMemoColor = async function(id, color) {
+    const memo = memos.find(function(m) { return m.id === id; }); if (!memo) return;
     memo.color = color;
-    await setDoc(doc(db, `users/${currentUser.uid}/memos`, id), memo);
+    await setDoc(doc(db, 'users/' + currentUser.uid + '/memos', id), memo);
     renderMemos();
   };
 
-  window.deleteMemo = async (id) => {
+  window.deleteMemo = async function(id) {
     if (!confirm('메모를 삭제할까요?')) return;
-    await deleteDoc(doc(db, `users/${currentUser.uid}/memos`, id));
-    memos = memos.filter(m => m.id !== id);
+    await deleteDoc(doc(db, 'users/' + currentUser.uid + '/memos', id));
+    memos = memos.filter(function(m) { return m.id !== id; });
     renderMemos(); showToast('🗑️ 삭제되었습니다.');
   };
 
   function renderMemos() {
     const grid = document.getElementById('memoGrid');
-    let html = memos.map(m => `
-      <div class="memo-card ${colorMap[m.color] || ''}">
-        <input class="memo-card-title" id="mTitle-${m.id}" value="${m.title}" placeholder="제목" onblur="saveMemo('${m.id}')" />
-        <textarea class="memo-card-content" id="mContent-${m.id}" placeholder="자유롭게 메모하세요..." onblur="saveMemo('${m.id}')">${m.content}</textarea>
-        <div class="memo-card-footer">
-          <span class="memo-card-date">${m.createdAt ? m.createdAt.substring(0,10) : ''}</span>
-          <div class="memo-card-actions">
-            ${memoColors.map(c => `<div class="memo-color-btn" style="background:${colorHex[c]};${m.color===c?'border-color:#333;transform:scale(1.2);':''}" onclick="changeMemoColor('${m.id}','${c}')"></div>`).join('')}
-            <button class="memo-delete-btn" onclick="deleteMemo('${m.id}')">🗑️</button>
-          </div>
-        </div>
-      </div>`).join('');
-    html += `<div class="memo-add-btn" onclick="addMemo()">+</div>`;
+    let html = memos.map(function(m) {
+      return '<div class="memo-card ' + (colorMap[m.color] || '') + '"><input class="memo-card-title" id="mTitle-' + m.id + '" value="' + (m.title || '') + '" placeholder="제목" onblur="saveMemo(\'' + m.id + '\')" /><textarea class="memo-card-content" id="mContent-' + m.id + '" placeholder="자유롭게 메모하세요..." onblur="saveMemo(\'' + m.id + '\')">' + (m.content || '') + '</textarea><div class="memo-card-footer"><span class="memo-card-date">' + (m.createdAt ? m.createdAt.substring(0,10) : '') + '</span><div class="memo-card-actions">' + memoColors.map(function(c) { return '<div class="memo-color-btn" style="background:' + colorHex[c] + ';' + (m.color===c ? 'border-color:#333;transform:scale(1.2);' : '') + '" onclick="changeMemoColor(\'' + m.id + '\',\'' + c + '\')"></div>'; }).join('') + '<button class="memo-delete-btn" onclick="deleteMemo(\'' + m.id + '\')">🗑️</button></div></div></div>';
+    }).join('');
+    html += '<div class="memo-add-btn" onclick="addMemo()">+</div>';
     grid.innerHTML = html;
   }
 
-  // ── 주간 리포트 ──
   function getWeekRange(offset) {
     const today = new Date(); today.setHours(0,0,0,0);
     const day = today.getDay();
     const mon = new Date(today); mon.setDate(today.getDate() - day + 1 + offset * 7);
     const sun = new Date(mon); sun.setDate(mon.getDate() + 6);
-    return { mon, sun };
+    return { mon: mon, sun: sun };
   }
 
   function dateToKey(d) {
-    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
   }
 
-  window.changeReportWeek = (dir) => {
+  window.changeReportWeek = function(dir) {
     if (dir === 0) reportWeekOffset = 0;
     else reportWeekOffset += dir;
     renderReport();
   };
 
   function renderReport() {
-    const { mon, sun } = getWeekRange(reportWeekOffset);
-    const monKey = dateToKey(mon); const sunKey = dateToKey(sun);
-    document.getElementById('reportWeekLabel').textContent = `${monKey} ~ ${sunKey}`;
-
+    const range = getWeekRange(reportWeekOffset);
+    const monKey = dateToKey(range.mon);
+    const sunKey = dateToKey(range.sun);
+    document.getElementById('reportWeekLabel').textContent = monKey + ' ~ ' + sunKey;
     const days = [];
     for (let i = 0; i < 7; i++) {
-      const d = new Date(mon); d.setDate(mon.getDate() + i);
-      days.push(d);
+      const d = new Date(range.mon); d.setDate(range.mon.getDate() + i); days.push(d);
     }
-
     const dayNames = ['일','월','화','수','목','금','토'];
     let totalEntries = 0; let doneTodos = 0; let undoneTodos = 0;
-
     let bodyHtml = '';
-    days.forEach(d => {
+    days.forEach(function(d) {
       const key = dateToKey(d);
       const entries = diaryEntries[key] || [];
-      const dayTodos = todos.filter(t => t.dueDate === key);
+      const dayTodos = todos.filter(function(t) { return t.dueDate === key; });
       totalEntries += entries.length;
-      doneTodos += dayTodos.filter(t => t.done).length;
-      undoneTodos += dayTodos.filter(t => !t.done).length;
+      doneTodos += dayTodos.filter(function(t) { return t.done; }).length;
+      undoneTodos += dayTodos.filter(function(t) { return !t.done; }).length;
       if (!entries.length && !dayTodos.length) return;
-      bodyHtml += `<div class="report-day">
-        <div class="report-day-title">${key} (${dayNames[d.getDay()]})</div>
-        ${entries.map(e => `<div class="report-entry-row">📄 ${e.title}</div>`).join('')}
-        ${dayTodos.map(t => `<div class="report-todo-row ${t.done ? '' : 'undone'}">${t.done ? '✅' : '⬜'} ${t.text || '(내용 없음)'}</div>`).join('')}
-      </div>`;
+      bodyHtml += '<div class="report-day"><div class="report-day-title">' + key + ' (' + dayNames[d.getDay()] + ')</div>';
+      entries.forEach(function(e) { bodyHtml += '<div class="report-entry-row">📄 ' + (e.title || '') + '</div>'; });
+      dayTodos.forEach(function(t) { bodyHtml += '<div class="report-todo-row ' + (t.done ? '' : 'undone') + '">' + (t.done ? '✅' : '⬜') + ' ' + (t.text || '') + '</div>'; });
+      bodyHtml += '</div>';
     });
-
-    document.getElementById('reportStats').innerHTML = `
-      <div class="report-stat"><div class="r-label">📝 업무 기록</div><div class="r-value">${totalEntries}</div></div>
-      <div class="report-stat"><div class="r-label">✅ 완료 TODO</div><div class="r-value">${doneTodos}</div></div>
-      <div class="report-stat"><div class="r-label">📌 미완료 TODO</div><div class="r-value">${undoneTodos}</div></div>
-      <div class="report-stat"><div class="r-label">📅 기록한 날</div><div class="r-value">${days.filter(d => (diaryEntries[dateToKey(d)] || []).length > 0).length}일</div></div>`;
+    document.getElementById('reportStats').innerHTML = '<div class="report-stat"><div class="r-label">📝 업무 기록</div><div class="r-value">' + totalEntries + '</div></div><div class="report-stat"><div class="r-label">✅ 완료 TODO</div><div class="r-value">' + doneTodos + '</div></div><div class="report-stat"><div class="r-label">📌 미완료 TODO</div><div class="r-value">' + undoneTodos + '</div></div><div class="report-stat"><div class="r-label">📅 기록한 날</div><div class="r-value">' + days.filter(function(d) { return (diaryEntries[dateToKey(d)] || []).length > 0; }).length + '일</div></div>';
     document.getElementById('reportBody').innerHTML = bodyHtml || '<div class="search-empty">이번 주 기록이 없습니다.</div>';
   }
 
-  // ── 자료실 ──
-  window.addResource = async () => {
+  window.addResource = async function() {
     const title = document.getElementById('resTitle').value.trim();
     const url = document.getElementById('resUrl').value.trim();
     const memo = document.getElementById('resMemo').value.trim();
     if (!title || !url) return showToast('제목과 링크를 입력해주세요.');
     const id = Date.now().toString();
-    const res = { title, url, memo, createdAt: new Date().toISOString() };
-    await setDoc(doc(db, `users/${currentUser.uid}/resources`, id), res);
-    resources.unshift({ id, ...res });
+    const res = { title: title, url: url, memo: memo, createdAt: new Date().toISOString() };
+    await setDoc(doc(db, 'users/' + currentUser.uid + '/resources', id), res);
+    resources.unshift(Object.assign({ id: id }, res));
     document.getElementById('resTitle').value = '';
     document.getElementById('resUrl').value = '';
     document.getElementById('resMemo').value = '';
     renderResources(); renderDashboard(); showToast('✅ 추가되었습니다!');
   };
 
-  window.deleteResource = async (id) => {
+  window.deleteResource = async function(id) {
     if (!confirm('삭제할까요?')) return;
-    await deleteDoc(doc(db, `users/${currentUser.uid}/resources`, id));
-    resources = resources.filter(r => r.id !== id);
+    await deleteDoc(doc(db, 'users/' + currentUser.uid + '/resources', id));
+    resources = resources.filter(function(r) { return r.id !== id; });
     renderResources(); renderDashboard(); showToast('🗑️ 삭제되었습니다.');
   };
 
   function renderResources() {
     const list = document.getElementById('resourceList');
     if (!resources.length) { list.innerHTML = '<div class="search-empty">자료가 없습니다.</div>'; return; }
-    list.innerHTML = resources.map(r => `
-      <div class="resource-item">
-        <div class="resource-info">
-          <a href="${r.url}" target="_blank">🔗 ${r.title}</a>
-          <p>${r.memo || ''}</p>
-        </div>
-        <button onclick="deleteResource('${r.id}')">✕</button>
-      </div>`).join('');
+    list.innerHTML = resources.map(function(r) {
+      return '<div class="resource-item"><div class="resource-info"><a href="' + r.url + '" target="_blank">🔗 ' + r.title + '</a><p>' + (r.memo || '') + '</p></div><button onclick="deleteResource(\'' + r.id + '\')">✕</button></div>';
+    }).join('');
   }
 
-  // ── 검색 ──
-  window.doSearch = () => {
+  window.doSearch = function() {
     const q = document.getElementById('searchInput').value.trim().toLowerCase();
     const results = document.getElementById('searchResults');
     if (!q) { results.innerHTML = '<div class="search-empty">검색어를 입력해주세요.</div>'; return; }
     let html = '';
-    Object.entries(diaryEntries).sort((a,b) => b[0].localeCompare(a[0])).forEach(([date, entries]) => {
-      entries.forEach(e => {
-        if (e.title.toLowerCase().includes(q) || e.content.toLowerCase().includes(q)) {
-          html += `<div class="search-result" onclick="goToDiary('${date}')">
-            <div class="s-date">📅 ${date}</div>
-            <div class="s-title">${e.title}</div>
-            <div class="s-preview">${e.content.substring(0,80)}${e.content.length>80?'...':''}</div>
-          </div>`;
+    Object.entries(diaryEntries).sort(function(a,b) { return b[0].localeCompare(a[0]); }).forEach(function(item) {
+      const date = item[0]; const entries = item[1];
+      entries.forEach(function(e) {
+        if ((e.title || '').toLowerCase().includes(q) || (e.content || '').toLowerCase().includes(q)) {
+          html += '<div class="search-result" onclick="goToDiary(\'' + date + '\')"><div class="s-date">📅 ' + date + '</div><div class="s-title">' + (e.title || '') + '</div><div class="s-preview">' + (e.content || '').substring(0,80) + ((e.content || '').length > 80 ? '...' : '') + '</div></div>';
         }
       });
     });
-    resources.filter(r => r.title.toLowerCase().includes(q) || (r.memo||'').toLowerCase().includes(q)).forEach(r => {
-      html += `<div class="search-result">
-        <div class="s-date">🗂️ 자료실</div>
-        <div class="s-title"><a href="${r.url}" target="_blank">${r.title}</a></div>
-        <div class="s-preview">${r.memo || ''}</div>
-      </div>`;
+    resources.filter(function(r) { return r.title.toLowerCase().includes(q) || (r.memo||'').toLowerCase().includes(q); }).forEach(function(r) {
+      html += '<div class="search-result"><div class="s-date">🗂️ 자료실</div><div class="s-title"><a href="' + r.url + '" target="_blank">' + r.title + '</a></div><div class="s-preview">' + (r.memo || '') + '</div></div>';
     });
     results.innerHTML = html || '<div class="search-empty">검색 결과가 없습니다.</div>';
   };
 
-  window.goToDiary = (date) => {
-    const [y, m] = date.split('-');
-    calYear = parseInt(y); calMonth = parseInt(m) - 1;
+  window.goToDiary = function(date) {
+    const parts = date.split('-');
+    calYear = parseInt(parts[0]); calMonth = parseInt(parts[1]) - 1;
     showPage('calendar');
-    setTimeout(() => openDiary(date), 100);
+    setTimeout(function() { openDiary(date); }, 100);
   };
 
-  // ── 대시보드 ──
   function renderDashboard() {
-    const total = Object.values(diaryEntries).reduce((s, a) => s + a.length, 0);
+    const total = Object.values(diaryEntries).reduce(function(s, a) { return s + a.length; }, 0);
     document.getElementById('statDiary').textContent = total;
-    document.getElementById('statTodoDone').textContent = todos.filter(t => t.done).length;
-    document.getElementById('statTodoLeft').textContent = todos.filter(t => !t.done).length;
+    document.getElementById('statTodoDone').textContent = todos.filter(function(t) { return t.done; }).length;
+    document.getElementById('statTodoLeft').textContent = todos.filter(function(t) { return !t.done; }).length;
     document.getElementById('statResource').textContent = resources.length;
-    const allEntries = Object.entries(diaryEntries).sort((a,b) => b[0].localeCompare(a[0])).flatMap(([date, entries]) => entries.filter(e => e.title).map(e => ({ date, ...e }))).slice(0, 5);
+    const allEntries = Object.entries(diaryEntries).sort(function(a,b) { return b[0].localeCompare(a[0]); }).reduce(function(acc, item) {
+      item[1].filter(function(e) { return e.title; }).forEach(function(e) { acc.push(Object.assign({ date: item[0] }, e)); });
+      return acc;
+    }, []).slice(0, 5);
     document.getElementById('recentList').innerHTML = allEntries.length
-      ? allEntries.map(e => `<div class="recent-item" onclick="goToDiary('${e.date}')"><div class="recent-date">${e.date}</div><div class="recent-text">${e.title}</div></div>`).join('')
+      ? allEntries.map(function(e) { return '<div class="recent-item" onclick="goToDiary(\'' + e.date + '\')"><div class="recent-date">' + e.date + '</div><div class="recent-text">' + (e.title || '') + '</div></div>'; }).join('')
       : '<div class="search-empty">기록이 없습니다.</div>';
-    const urgent = todos.filter(t => t.priority === 'urgent' && !t.done);
-    const pl = { urgent: '🔴 긴급', normal: '🟡 보통', low: '🟢 낮음' };
+    const urgent = todos.filter(function(t) { return t.priority === 'urgent' && !t.done; });
     document.getElementById('urgentList').innerHTML = urgent.length
-      ? urgent.map(t => `<div class="todo-item urgent"><input type="checkbox" onchange="toggleTodo('${t.id}')"/><div class="todo-item-info"><div class="todo-text">${t.text || '(내용 없음)'}</div><div class="todo-meta"><span class="priority-badge urgent">${pl.urgent}</span>${renderDdayBadge(t.dueDate)}</div></div></div>`).join('')
+      ? urgent.map(function(t) { return '<div class="todo-item urgent"><input type="checkbox" onchange="toggleTodo(\'' + t.id + '\')"/><div class="todo-item-info"><div class="todo-text">' + (t.text || '') + '</div><div class="todo-meta"><span class="priority-badge urgent">🔴 긴급</span>' + renderDdayBadge(t.dueDate) + '</div></div></div>'; }).join('')
       : '<div class="search-empty">긴급 항목이 없습니다.</div>';
   }
 
-  // ── 유틸 ──
   function getTodayKey() {
     const t = new Date();
-    return `${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,'0')}-${String(t.getDate()).padStart(2,'0')}`;
+    return t.getFullYear() + '-' + String(t.getMonth()+1).padStart(2,'0') + '-' + String(t.getDate()).padStart(2,'0');
   }
 
-  // ── 페이지 전환 ──
-  window.showPage = (name) => {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.sidebar nav a').forEach(a => a.classList.remove('active'));
-    document.getElementById(`page-${name}`).classList.add('active');
-    document.getElementById(`nav-${name}`).classList.add('active');
+  window.showPage = function(name) {
+    document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+    document.querySelectorAll('.sidebar nav a').forEach(function(a) { a.classList.remove('active'); });
+    document.getElementById('page-' + name).classList.add('active');
+    document.getElementById('nav-' + name).classList.add('active');
     if (name === 'dashboard') renderDashboard();
     if (name === 'calendar') renderCalendar();
     if (name === 'report') renderReport();
     if (name === 'memo') renderMemos();
   };
 
-  window.showToast = (msg) => {
+  window.showToast = function(msg) {
     const t = document.getElementById('toast');
     t.textContent = msg; t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2500);
+    setTimeout(function() { t.classList.remove('show'); }, 2500);
   };
 </script>
 </body>
