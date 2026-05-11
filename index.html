@@ -18,106 +18,37 @@
     --border: #e2e6f0;
     --danger: #ef4444;
     --success: #22c55e;
+    --warning: #f59e0b;
   }
   body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
   /* ── 로그인 ── */
-  #loginPage {
-    display: flex; align-items: center; justify-content: center;
-    min-height: 100vh; background: linear-gradient(135deg, #1e2a45, #4f6ef7);
-  }
-  .login-box {
-    background: white; border-radius: 16px; padding: 48px 40px;
-    width: 100%; max-width: 400px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    text-align: center;
-  }
+  #loginPage { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: linear-gradient(135deg, #1e2a45, #4f6ef7); }
+  .login-box { background: white; border-radius: 16px; padding: 48px 40px; width: 100%; max-width: 400px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center; }
   .login-box h1 { font-size: 1.8rem; margin-bottom: 8px; color: var(--text); }
   .login-box p { color: var(--sub); margin-bottom: 32px; font-size: 0.95rem; }
-  .login-box input {
-    width: 100%; padding: 12px 16px; border: 1.5px solid var(--border);
-    border-radius: 8px; font-size: 1rem; margin-bottom: 12px; outline: none;
-    transition: border-color 0.2s;
-  }
+  .login-box input { width: 100%; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 1rem; margin-bottom: 12px; outline: none; transition: border-color 0.2s; }
   .login-box input:focus { border-color: var(--primary); }
-  .login-box button {
-    width: 100%; padding: 13px; background: var(--primary); color: white;
-    border: none; border-radius: 8px; font-size: 1rem; font-weight: 600;
-    cursor: pointer; transition: background 0.2s; margin-top: 4px;
-  }
+  .login-box button { width: 100%; padding: 13px; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; margin-top: 4px; }
   .login-box button:hover { background: var(--primary-d); }
   #loginError { color: var(--danger); font-size: 0.88rem; margin-top: 10px; display: none; }
 
   /* ── 레이아웃 ── */
   #app { display: none; min-height: 100vh; }
   .layout { display: flex; min-height: 100vh; }
-  .sidebar {
-    width: 220px; background: var(--sidebar); color: white;
-    display: flex; flex-direction: column; padding: 24px 0; position: fixed;
-    top: 0; left: 0; height: 100vh; z-index: 100;
-  }
+  .sidebar { width: 220px; background: var(--sidebar); color: white; display: flex; flex-direction: column; padding: 24px 0; position: fixed; top: 0; left: 0; height: 100vh; z-index: 100; }
   .sidebar-logo { padding: 0 24px 24px; font-size: 1.2rem; font-weight: 700; border-bottom: 1px solid #2d3f63; }
-  .sidebar-logo span { font-size: 1.4rem; }
   .sidebar nav { margin-top: 16px; flex: 1; }
-  .sidebar nav a {
-    display: flex; align-items: center; gap: 10px; padding: 12px 24px;
-    color: var(--sidebar-t); text-decoration: none; font-size: 0.95rem;
-    transition: all 0.2s; cursor: pointer; border: none; background: none; width: 100%;
-  }
-  .sidebar nav a:hover, .sidebar nav a.active {
-    background: rgba(79,110,247,0.18); color: white;
-  }
+  .sidebar nav a { display: flex; align-items: center; gap: 10px; padding: 12px 24px; color: var(--sidebar-t); text-decoration: none; font-size: 0.95rem; transition: all 0.2s; cursor: pointer; border: none; background: none; width: 100%; }
+  .sidebar nav a:hover, .sidebar nav a.active { background: rgba(79,110,247,0.18); color: white; }
   .sidebar-bottom { padding: 16px 24px; border-top: 1px solid #2d3f63; }
-  .sidebar-bottom button {
-    background: none; border: 1px solid #2d3f63; color: var(--sidebar-t);
-    padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.88rem;
-    width: 100%; transition: all 0.2s;
-  }
+  .sidebar-bottom button { background: none; border: 1px solid #2d3f63; color: var(--sidebar-t); padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.88rem; width: 100%; transition: all 0.2s; }
   .sidebar-bottom button:hover { background: #2d3f63; color: white; }
   .main { margin-left: 220px; flex: 1; padding: 32px; }
-
-  /* ── 공통 카드 ── */
   .card { background: var(--card); border-radius: 14px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 24px; }
   .page { display: none; }
   .page.active { display: block; }
   .page-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 24px; }
-
-  /* ── 캘린더 ── */
-  .cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-  .cal-header h2 { font-size: 1.2rem; font-weight: 700; }
-  .cal-nav { display: flex; gap: 8px; }
-  .cal-nav button {
-    background: var(--bg); border: none; border-radius: 8px;
-    padding: 6px 14px; cursor: pointer; font-size: 1rem; transition: background 0.2s;
-  }
-  .cal-nav button:hover { background: var(--border); }
-  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
-  .cal-day-name { text-align: center; font-size: 0.8rem; font-weight: 600; color: var(--sub); padding: 8px 0; }
-  .cal-day {
-    aspect-ratio: 1; display: flex; flex-direction: column; align-items: center;
-    justify-content: center; border-radius: 10px; cursor: pointer;
-    font-size: 0.9rem; position: relative; transition: background 0.15s;
-    border: 2px solid transparent;
-  }
-  .cal-day:hover { background: var(--bg); }
-  .cal-day.today { border-color: var(--primary); color: var(--primary); font-weight: 700; }
-  .cal-day.has-entry::after {
-    content: ''; position: absolute; bottom: 5px; width: 5px; height: 5px;
-    background: var(--primary); border-radius: 50%;
-  }
-  .cal-day.empty { cursor: default; }
-  .cal-day.selected { background: var(--primary); color: white; }
-  .cal-day.selected::after { background: white; }
-
-  /* ── 다이어리 작성 ── */
-  .diary-panel { margin-top: 24px; }
-  .diary-panel h3 { font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--primary); }
-  .diary-panel textarea {
-    width: 100%; min-height: 160px; padding: 14px; border: 1.5px solid var(--border);
-    border-radius: 10px; font-size: 0.95rem; resize: vertical; outline: none;
-    transition: border-color 0.2s; font-family: inherit;
-  }
-  .diary-panel textarea:focus { border-color: var(--primary); }
-  .diary-actions { display: flex; gap: 8px; margin-top: 10px; justify-content: flex-end; }
   .btn { padding: 9px 20px; border-radius: 8px; border: none; cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: all 0.2s; }
   .btn-primary { background: var(--primary); color: white; }
   .btn-primary:hover { background: var(--primary-d); }
@@ -126,41 +57,99 @@
   .btn-outline { background: white; color: var(--text); border: 1.5px solid var(--border); }
   .btn-outline:hover { background: var(--bg); }
 
+  /* ── 캘린더 ── */
+  .cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .cal-header h2 { font-size: 1.2rem; font-weight: 700; }
+  .cal-nav { display: flex; gap: 8px; }
+  .cal-nav button { background: var(--bg); border: none; border-radius: 8px; padding: 6px 14px; cursor: pointer; font-size: 1rem; transition: background 0.2s; }
+  .cal-nav button:hover { background: var(--border); }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .cal-day-name { text-align: center; font-size: 0.8rem; font-weight: 600; color: var(--sub); padding: 8px 0; }
+  .cal-day {
+    min-height: 90px; display: flex; flex-direction: column;
+    border-radius: 10px; cursor: pointer; font-size: 0.9rem;
+    position: relative; transition: background 0.15s;
+    border: 2px solid transparent; padding: 6px;
+  }
+  .cal-day:hover { background: var(--bg); }
+  .cal-day.today { border-color: var(--primary); }
+  .cal-day.today .cal-day-num { color: var(--primary); font-weight: 700; }
+  .cal-day.empty { cursor: default; }
+  .cal-day.selected { background: #eef1ff; border-color: var(--primary); }
+  .cal-day-num { font-size: 0.88rem; font-weight: 600; margin-bottom: 4px; }
+  .cal-entry-chip {
+    font-size: 0.7rem; padding: 2px 6px; border-radius: 4px;
+    margin-bottom: 2px; white-space: nowrap; overflow: hidden;
+    text-overflow: ellipsis; background: #eef1ff; color: var(--primary);
+    cursor: pointer;
+  }
+  .cal-entry-chip.urgent { background: #fee2e2; color: var(--danger); }
+  .cal-entry-chip.todo-chip { background: #fef3c7; color: #92400e; }
+
+  /* ── 다이어리 패널 ── */
+  .diary-panel { margin-top: 0; }
+  .diary-panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .diary-panel-header h3 { font-size: 1rem; font-weight: 700; color: var(--primary); }
+  .entry-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+  .entry-item { border: 1.5px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .entry-item-header { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--bg); cursor: pointer; }
+  .entry-item-header:hover { background: var(--border); }
+  .entry-title-text { flex: 1; font-weight: 600; font-size: 0.92rem; }
+  .entry-item-body { padding: 12px 14px; font-size: 0.92rem; line-height: 1.6; color: var(--text); border-top: 1.5px solid var(--border); display: none; white-space: pre-wrap; }
+  .entry-item-body.open { display: block; }
+  .entry-delete-btn { background: none; border: none; color: var(--sub); cursor: pointer; font-size: 1rem; padding: 2px 6px; border-radius: 4px; }
+  .entry-delete-btn:hover { color: var(--danger); background: #fee2e2; }
+
+  /* ── 새 기록 폼 ── */
+  .new-entry-form { border: 1.5px dashed var(--border); border-radius: 10px; padding: 14px; }
+  .new-entry-form input[type=text] { width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 0.92rem; outline: none; margin-bottom: 8px; transition: border-color 0.2s; }
+  .new-entry-form input[type=text]:focus { border-color: var(--primary); }
+  .new-entry-form textarea { width: 100%; min-height: 100px; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 0.92rem; resize: vertical; outline: none; transition: border-color 0.2s; font-family: inherit; margin-bottom: 8px; }
+  .new-entry-form textarea:focus { border-color: var(--primary); }
+  .form-actions { display: flex; justify-content: flex-end; gap: 8px; }
+
   /* ── TODO ── */
-  .todo-input-row { display: flex; gap: 8px; margin-bottom: 20px; }
-  .todo-input-row input {
-    flex: 1; padding: 11px 14px; border: 1.5px solid var(--border);
-    border-radius: 8px; font-size: 0.95rem; outline: none; transition: border-color 0.2s;
-  }
-  .todo-input-row input:focus { border-color: var(--primary); }
-  .todo-list { display: flex; flex-direction: column; gap: 8px; }
-  .todo-item {
-    display: flex; align-items: center; gap: 12px; padding: 12px 16px;
-    background: var(--bg); border-radius: 10px; transition: opacity 0.2s;
-  }
-  .todo-item.done { opacity: 0.5; }
-  .todo-item.done span { text-decoration: line-through; }
-  .todo-item input[type=checkbox] { width: 18px; height: 18px; cursor: pointer; accent-color: var(--primary); }
-  .todo-item span { flex: 1; font-size: 0.95rem; }
-  .todo-item button { background: none; border: none; color: var(--sub); cursor: pointer; font-size: 1.1rem; padding: 2px 6px; border-radius: 4px; }
-  .todo-item button:hover { color: var(--danger); background: #fee2e2; }
-  .todo-filter { display: flex; gap: 8px; margin-bottom: 16px; }
+  .todo-input-area { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; background: var(--bg); border-radius: 12px; padding: 16px; }
+  .todo-input-row { display: flex; gap: 8px; }
+  .todo-input-row input[type=text] { flex: 1; padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 0.95rem; outline: none; transition: border-color 0.2s; background: white; }
+  .todo-input-row input[type=text]:focus { border-color: var(--primary); }
+  .todo-meta-row { display: flex; gap: 8px; align-items: center; }
+  .todo-meta-row input[type=date] { padding: 9px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 0.88rem; outline: none; background: white; cursor: pointer; }
+  .priority-select { display: flex; gap: 6px; }
+  .priority-btn { padding: 7px 14px; border-radius: 20px; border: 1.5px solid var(--border); background: white; cursor: pointer; font-size: 0.82rem; font-weight: 600; transition: all 0.2s; }
+  .priority-btn.selected-urgent { background: #fee2e2; border-color: var(--danger); color: var(--danger); }
+  .priority-btn.selected-normal { background: #fef3c7; border-color: var(--warning); color: #92400e; }
+  .priority-btn.selected-low { background: #dcfce7; border-color: var(--success); color: #166534; }
+  .todo-filter { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
   .todo-filter button { padding: 6px 14px; border-radius: 20px; border: 1.5px solid var(--border); background: white; cursor: pointer; font-size: 0.85rem; transition: all 0.2s; }
   .todo-filter button.active { background: var(--primary); color: white; border-color: var(--primary); }
+  .todo-list { display: flex; flex-direction: column; gap: 8px; }
+  .todo-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: var(--bg); border-radius: 10px; transition: opacity 0.2s; border-left: 4px solid transparent; }
+  .todo-item.urgent { border-left-color: var(--danger); }
+  .todo-item.normal { border-left-color: var(--warning); }
+  .todo-item.low { border-left-color: var(--success); }
+  .todo-item.done { opacity: 0.5; }
+  .todo-item.done .todo-text { text-decoration: line-through; }
+  .todo-item input[type=checkbox] { width: 18px; height: 18px; cursor: pointer; accent-color: var(--primary); flex-shrink: 0; }
+  .todo-item-info { flex: 1; min-width: 0; }
+  .todo-text { font-size: 0.95rem; }
+  .todo-meta { display: flex; gap: 8px; align-items: center; margin-top: 4px; flex-wrap: wrap; }
+  .priority-badge { font-size: 0.75rem; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+  .priority-badge.urgent { background: #fee2e2; color: var(--danger); }
+  .priority-badge.normal { background: #fef3c7; color: #92400e; }
+  .priority-badge.low { background: #dcfce7; color: #166534; }
+  .dday-badge { font-size: 0.75rem; padding: 2px 8px; border-radius: 10px; font-weight: 600; background: #eef1ff; color: var(--primary); }
+  .dday-badge.overdue { background: #fee2e2; color: var(--danger); }
+  .dday-badge.today-due { background: #fef3c7; color: #92400e; }
+  .todo-item button { background: none; border: none; color: var(--sub); cursor: pointer; font-size: 1.1rem; padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+  .todo-item button:hover { color: var(--danger); background: #fee2e2; }
 
   /* ── 자료실 ── */
   .resource-input { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
-  .resource-input input {
-    padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 8px;
-    font-size: 0.95rem; outline: none; transition: border-color 0.2s;
-  }
+  .resource-input input { padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
   .resource-input input:focus { border-color: var(--primary); }
   .resource-list { display: flex; flex-direction: column; gap: 10px; }
-  .resource-item {
-    display: flex; align-items: center; gap: 14px; padding: 14px 16px;
-    background: var(--bg); border-radius: 10px;
-  }
-  .resource-icon { font-size: 1.5rem; }
+  .resource-item { display: flex; align-items: center; gap: 14px; padding: 14px 16px; background: var(--bg); border-radius: 10px; }
   .resource-info { flex: 1; }
   .resource-info a { font-weight: 600; color: var(--primary); text-decoration: none; font-size: 0.95rem; }
   .resource-info a:hover { text-decoration: underline; }
@@ -170,15 +159,13 @@
 
   /* ── 검색 ── */
   .search-bar { display: flex; gap: 8px; margin-bottom: 24px; }
-  .search-bar input {
-    flex: 1; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 10px;
-    font-size: 1rem; outline: none; transition: border-color 0.2s;
-  }
+  .search-bar input { flex: 1; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 1rem; outline: none; transition: border-color 0.2s; }
   .search-bar input:focus { border-color: var(--primary); }
   .search-result { padding: 16px; background: var(--bg); border-radius: 10px; margin-bottom: 10px; cursor: pointer; transition: background 0.15s; }
   .search-result:hover { background: var(--border); }
-  .search-result .date { font-size: 0.82rem; color: var(--primary); font-weight: 700; margin-bottom: 4px; }
-  .search-result .preview { font-size: 0.92rem; color: var(--text); }
+  .search-result .s-date { font-size: 0.82rem; color: var(--primary); font-weight: 700; margin-bottom: 4px; }
+  .search-result .s-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 2px; }
+  .search-result .s-preview { font-size: 0.88rem; color: var(--sub); }
   .search-empty { text-align: center; color: var(--sub); padding: 40px 0; font-size: 0.95rem; }
 
   /* ── 대시보드 ── */
@@ -189,14 +176,16 @@
   .recent-list { display: flex; flex-direction: column; gap: 8px; }
   .recent-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px; background: var(--bg); border-radius: 8px; cursor: pointer; }
   .recent-item:hover { background: var(--border); }
-  .recent-date { font-size: 0.8rem; color: var(--primary); font-weight: 700; min-width: 70px; }
+  .recent-date { font-size: 0.8rem; color: var(--primary); font-weight: 700; min-width: 80px; }
   .recent-text { font-size: 0.9rem; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-  .toast {
-    position: fixed; bottom: 30px; right: 30px; background: #1e2a45; color: white;
-    padding: 12px 24px; border-radius: 10px; font-size: 0.92rem; z-index: 9999;
-    opacity: 0; transition: opacity 0.3s; pointer-events: none;
-  }
+  /* ── 모달 ── */
+  .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 200; display: flex; align-items: center; justify-content: center; }
+  .modal { background: white; border-radius: 16px; padding: 28px; width: 100%; max-width: 480px; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+  .modal h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; }
+  .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
+
+  .toast { position: fixed; bottom: 30px; right: 30px; background: #1e2a45; color: white; padding: 12px 24px; border-radius: 10px; font-size: 0.92rem; z-index: 9999; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
   .toast.show { opacity: 1; }
 </style>
 </head>
@@ -208,7 +197,7 @@
     <h1>📋 업무 다이어리</h1>
     <p>나만의 업무 기록 공간</p>
     <input type="email" id="loginEmail" placeholder="이메일" />
-    <input type="password" id="loginPw" placeholder="비밀번호" />
+    <input type="password" id="loginPw" placeholder="비밀번호" onkeydown="if(event.key==='Enter') doLogin()" />
     <button onclick="doLogin()">로그인</button>
     <div id="loginError">이메일 또는 비밀번호가 올바르지 않습니다.</div>
   </div>
@@ -218,7 +207,7 @@
 <div id="app">
   <div class="layout">
     <aside class="sidebar">
-      <div class="sidebar-logo"><span>📋</span> 업무 다이어리</div>
+      <div class="sidebar-logo">📋 업무 다이어리</div>
       <nav>
         <a onclick="showPage('dashboard')" id="nav-dashboard">🏠 대시보드</a>
         <a onclick="showPage('calendar')" id="nav-calendar">📅 캘린더</a>
@@ -245,6 +234,10 @@
           <div style="font-weight:700; margin-bottom:16px;">📅 최근 업무 기록</div>
           <div class="recent-list" id="recentList"><div class="search-empty">기록이 없습니다.</div></div>
         </div>
+        <div class="card">
+          <div style="font-weight:700; margin-bottom:16px;">🔴 긴급 TODO</div>
+          <div id="urgentList"><div class="search-empty">긴급 항목이 없습니다.</div></div>
+        </div>
       </div>
 
       <!-- 캘린더 -->
@@ -261,13 +254,20 @@
           </div>
           <div class="cal-grid" id="calGrid"></div>
         </div>
+
+        <!-- 날짜별 기록 패널 -->
         <div class="card diary-panel" id="diaryPanel" style="display:none;">
-          <h3 id="diaryDateTitle"></h3>
-          <textarea id="diaryText" placeholder="오늘의 업무 내용을 기록하세요..."></textarea>
-          <div class="diary-actions">
-            <button class="btn btn-danger" onclick="deleteEntry()" id="deleteDiaryBtn" style="display:none;">삭제</button>
+          <div class="diary-panel-header">
+            <h3 id="diaryDateTitle"></h3>
             <button class="btn btn-outline" onclick="closeDiary()">닫기</button>
-            <button class="btn btn-primary" onclick="saveEntry()">저장</button>
+          </div>
+          <div class="entry-list" id="entryList"></div>
+          <div class="new-entry-form" id="newEntryForm">
+            <input type="text" id="entryTitle" placeholder="제목 (예: 팀 회의, 보고서 작성)" />
+            <textarea id="entryContent" placeholder="상세 내용을 입력하세요..."></textarea>
+            <div class="form-actions">
+              <button class="btn btn-primary" onclick="saveEntry()">+ 추가</button>
+            </div>
           </div>
         </div>
       </div>
@@ -276,14 +276,25 @@
       <div class="page" id="page-todo">
         <div class="page-title">✅ TODO</div>
         <div class="card">
-          <div class="todo-input-row">
-            <input type="text" id="todoInput" placeholder="할 일을 입력하세요..." onkeydown="if(event.key==='Enter') addTodo()" />
-            <button class="btn btn-primary" onclick="addTodo()">추가</button>
+          <div class="todo-input-area">
+            <div class="todo-input-row">
+              <input type="text" id="todoInput" placeholder="할 일을 입력하세요..." onkeydown="if(event.key==='Enter') addTodo()" />
+              <button class="btn btn-primary" onclick="addTodo()">추가</button>
+            </div>
+            <div class="todo-meta-row">
+              <input type="date" id="todoDueDate" />
+              <div class="priority-select">
+                <button class="priority-btn" id="pBtn-urgent" onclick="selectPriority('urgent')">🔴 긴급</button>
+                <button class="priority-btn" id="pBtn-normal" onclick="selectPriority('normal')">🟡 보통</button>
+                <button class="priority-btn" id="pBtn-low" onclick="selectPriority('low')">🟢 낮음</button>
+              </div>
+            </div>
           </div>
           <div class="todo-filter">
-            <button class="active" onclick="filterTodo('all', this)">전체</button>
-            <button onclick="filterTodo('active', this)">진행중</button>
-            <button onclick="filterTodo('done', this)">완료</button>
+            <button class="active" onclick="filterTodo('all',this)">전체</button>
+            <button onclick="filterTodo('active',this)">진행중</button>
+            <button onclick="filterTodo('done',this)">완료</button>
+            <button onclick="filterTodo('urgent',this)">🔴 긴급</button>
           </div>
           <div class="todo-list" id="todoList"></div>
         </div>
@@ -297,7 +308,7 @@
             <input type="text" id="resTitle" placeholder="자료 제목" />
             <input type="text" id="resUrl" placeholder="링크 URL (iCloud, Google Drive 등)" />
             <input type="text" id="resMemo" placeholder="메모 (선택사항)" />
-            <button class="btn btn-primary" onclick="addResource()" style="align-self:flex-end; padding: 10px 24px;">추가</button>
+            <button class="btn btn-primary" onclick="addResource()" style="align-self:flex-end; padding:10px 24px;">추가</button>
           </div>
           <div class="resource-list" id="resourceList"></div>
         </div>
@@ -308,7 +319,7 @@
         <div class="page-title">🔍 검색</div>
         <div class="card">
           <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="업무 내용, 자료 검색..." onkeydown="if(event.key==='Enter') doSearch()" />
+            <input type="text" id="searchInput" placeholder="업무 제목, 내용, 자료 검색..." onkeydown="if(event.key==='Enter') doSearch()" />
             <button class="btn btn-primary" onclick="doSearch()">검색</button>
           </div>
           <div id="searchResults"><div class="search-empty">검색어를 입력해주세요.</div></div>
@@ -321,12 +332,11 @@
 
 <div class="toast" id="toast"></div>
 
-<!-- Firebase SDK -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-  import { getFirestore, collection, doc, setDoc, getDoc, getDocs, deleteDoc, query, orderBy }
+  import { getFirestore, collection, doc, setDoc, getDocs, deleteDoc, query, orderBy, addDoc }
     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
   // ✅ 여기에 본인의 firebaseConfig 붙여넣기
@@ -347,10 +357,11 @@
   let currentDate = null;
   let calYear = new Date().getFullYear();
   let calMonth = new Date().getMonth();
-  let diaryEntries = {};
+  let diaryEntries = {};   // { "2025-01-01": [ {id, title, content}, ... ] }
   let todos = [];
   let resources = [];
   let todoFilter = 'all';
+  let selectedPriority = 'normal';
 
   // ── 인증 ──
   onAuthStateChanged(auth, async (user) => {
@@ -361,6 +372,7 @@
       await loadAll();
       renderCalendar();
       renderDashboard();
+      showPage('dashboard');
     } else {
       document.getElementById('loginPage').style.display = 'flex';
       document.getElementById('app').style.display = 'none';
@@ -372,16 +384,11 @@
     const pw = document.getElementById('loginPw').value;
     const err = document.getElementById('loginError');
     err.style.display = 'none';
-    try {
-      await signInWithEmailAndPassword(auth, email, pw);
-    } catch(e) {
-      err.style.display = 'block';
-    }
+    try { await signInWithEmailAndPassword(auth, email, pw); }
+    catch(e) { err.style.display = 'block'; }
   };
 
-  window.doLogout = async () => {
-    await signOut(auth);
-  };
+  window.doLogout = async () => { await signOut(auth); };
 
   // ── 데이터 로드 ──
   async function loadAll() {
@@ -392,16 +399,20 @@
 
   async function loadDiaries() {
     diaryEntries = {};
-    const q = query(collection(db, `users/${currentUser.uid}/diaries`), orderBy('date', 'desc'));
-    const snap = await getDocs(q);
-    snap.forEach(d => { diaryEntries[d.id] = d.data().content; });
+    const snap = await getDocs(collection(db, `users/${currentUser.uid}/diaries`));
+    snap.forEach(d => {
+      const data = d.data();
+      const date = data.date;
+      if (!diaryEntries[date]) diaryEntries[date] = [];
+      diaryEntries[date].push({ id: d.id, ...data });
+    });
   }
 
   async function loadTodos() {
     todos = [];
     const q = query(collection(db, `users/${currentUser.uid}/todos`), orderBy('createdAt'));
     const snap = await getDocs(q);
-    snap.forEach(d => { todos.push({ id: d.id, ...d.data() }); });
+    snap.forEach(d => todos.push({ id: d.id, ...d.data() }));
     renderTodos();
   }
 
@@ -409,13 +420,26 @@
     resources = [];
     const q = query(collection(db, `users/${currentUser.uid}/resources`), orderBy('createdAt', 'desc'));
     const snap = await getDocs(q);
-    snap.forEach(d => { resources.push({ id: d.id, ...d.data() }); });
+    snap.forEach(d => resources.push({ id: d.id, ...d.data() }));
     renderResources();
   }
 
   // ── 캘린더 ──
-  window.changeMonth = (dir) => { calMonth += dir; if(calMonth>11){calMonth=0;calYear++;}else if(calMonth<0){calMonth=11;calYear--;} renderCalendar(); };
-  window.goToday = () => { calYear=new Date().getFullYear(); calMonth=new Date().getMonth(); renderCalendar(); };
+  window.changeMonth = (dir) => {
+    calMonth += dir;
+    if (calMonth > 11) { calMonth = 0; calYear++; }
+    else if (calMonth < 0) { calMonth = 11; calYear--; }
+    renderCalendar();
+  };
+  window.goToday = () => {
+    calYear = new Date().getFullYear();
+    calMonth = new Date().getMonth();
+    renderCalendar();
+  };
+
+  function getTodoChipsForDate(dateKey) {
+    return todos.filter(t => t.dueDate === dateKey && !t.done);
+  }
 
   function renderCalendar() {
     const months = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
@@ -423,19 +447,57 @@
     const grid = document.getElementById('calGrid');
     grid.innerHTML = '';
     ['일','월','화','수','목','금','토'].forEach(d => {
-      const el = document.createElement('div'); el.className='cal-day-name'; el.textContent=d; grid.appendChild(el);
+      const el = document.createElement('div'); el.className = 'cal-day-name'; el.textContent = d; grid.appendChild(el);
     });
     const first = new Date(calYear, calMonth, 1).getDay();
-    const days = new Date(calYear, calMonth+1, 0).getDate();
+    const days = new Date(calYear, calMonth + 1, 0).getDate();
     const today = new Date();
-    for(let i=0;i<first;i++){const el=document.createElement('div');el.className='cal-day empty';grid.appendChild(el);}
-    for(let d=1;d<=days;d++){
-      const el = document.createElement('div'); el.className='cal-day';
+    for (let i = 0; i < first; i++) {
+      const el = document.createElement('div'); el.className = 'cal-day empty'; grid.appendChild(el);
+    }
+    for (let d = 1; d <= days; d++) {
+      const el = document.createElement('div'); el.className = 'cal-day';
       const key = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-      el.textContent = d;
-      if(today.getFullYear()===calYear&&today.getMonth()===calMonth&&today.getDate()===d) el.classList.add('today');
-      if(diaryEntries[key]) el.classList.add('has-entry');
-      if(currentDate===key) el.classList.add('selected');
+      if (today.getFullYear()===calYear && today.getMonth()===calMonth && today.getDate()===d) el.classList.add('today');
+      if (currentDate === key) el.classList.add('selected');
+
+      const numEl = document.createElement('div'); numEl.className = 'cal-day-num'; numEl.textContent = d;
+      el.appendChild(numEl);
+
+      // 업무 기록 칩
+      const entries = diaryEntries[key] || [];
+      entries.slice(0, 2).forEach(entry => {
+        const chip = document.createElement('div');
+        chip.className = 'cal-entry-chip';
+        chip.textContent = entry.title;
+        chip.onclick = (e) => { e.stopPropagation(); openDiary(key); };
+        el.appendChild(chip);
+      });
+      if (entries.length > 2) {
+        const more = document.createElement('div');
+        more.className = 'cal-entry-chip';
+        more.style.background = '#f3f4f6';
+        more.style.color = '#6b7280';
+        more.textContent = `+${entries.length - 2}개 더`;
+        el.appendChild(more);
+      }
+
+      // TODO 마감 칩
+      const todoChips = getTodoChipsForDate(key);
+      todoChips.slice(0, 1).forEach(t => {
+        const chip = document.createElement('div');
+        chip.className = `cal-entry-chip todo-chip ${t.priority === 'urgent' ? 'urgent' : ''}`;
+        chip.textContent = `📌 ${t.text.length > 8 ? t.text.substring(0,8)+'...' : t.text}`;
+        chip.onclick = (e) => { e.stopPropagation(); showPage('todo'); };
+        el.appendChild(chip);
+      });
+      if (todoChips.length > 1) {
+        const more = document.createElement('div');
+        more.className = 'cal-entry-chip todo-chip';
+        more.textContent = `+${todoChips.length - 1}개 마감`;
+        el.appendChild(more);
+      }
+
       el.onclick = () => openDiary(key);
       grid.appendChild(el);
     }
@@ -447,77 +509,158 @@
     const panel = document.getElementById('diaryPanel');
     panel.style.display = 'block';
     document.getElementById('diaryDateTitle').textContent = `📝 ${key}`;
-    document.getElementById('diaryText').value = diaryEntries[key] || '';
-    document.getElementById('deleteDiaryBtn').style.display = diaryEntries[key] ? 'inline-block' : 'none';
+    document.getElementById('entryTitle').value = '';
+    document.getElementById('entryContent').value = '';
+    renderEntryList();
     panel.scrollIntoView({ behavior: 'smooth' });
   };
 
   window.closeDiary = () => {
     document.getElementById('diaryPanel').style.display = 'none';
-    currentDate = null; renderCalendar();
+    currentDate = null;
+    renderCalendar();
+  };
+
+  function renderEntryList() {
+    const list = document.getElementById('entryList');
+    const entries = diaryEntries[currentDate] || [];
+    if (!entries.length) { list.innerHTML = '<div class="search-empty" style="padding:16px 0;">아직 기록이 없어요. 아래에서 추가해보세요!</div>'; return; }
+    list.innerHTML = entries.map(e => `
+      <div class="entry-item">
+        <div class="entry-item-header" onclick="toggleEntry('${e.id}')">
+          <span class="entry-title-text">📄 ${e.title}</span>
+          <button class="entry-delete-btn" onclick="event.stopPropagation(); deleteEntry('${e.id}')">✕</button>
+        </div>
+        <div class="entry-item-body" id="body-${e.id}">${e.content}</div>
+      </div>`).join('');
+  }
+
+  window.toggleEntry = (id) => {
+    const body = document.getElementById(`body-${id}`);
+    if (body) body.classList.toggle('open');
   };
 
   window.saveEntry = async () => {
-    if(!currentDate) return;
-    const content = document.getElementById('diaryText').value.trim();
-    if(!content) return showToast('내용을 입력해주세요.');
-    await setDoc(doc(db, `users/${currentUser.uid}/diaries`, currentDate), { date: currentDate, content, updatedAt: new Date().toISOString() });
-    diaryEntries[currentDate] = content;
-    document.getElementById('deleteDiaryBtn').style.display = 'inline-block';
-    renderCalendar(); renderDashboard(); showToast('✅ 저장되었습니다!');
+    if (!currentDate) return;
+    const title = document.getElementById('entryTitle').value.trim();
+    const content = document.getElementById('entryContent').value.trim();
+    if (!title) return showToast('제목을 입력해주세요.');
+    if (!content) return showToast('내용을 입력해주세요.');
+    const docRef = await addDoc(collection(db, `users/${currentUser.uid}/diaries`), {
+      date: currentDate, title, content, createdAt: new Date().toISOString()
+    });
+    if (!diaryEntries[currentDate]) diaryEntries[currentDate] = [];
+    diaryEntries[currentDate].push({ id: docRef.id, date: currentDate, title, content });
+    document.getElementById('entryTitle').value = '';
+    document.getElementById('entryContent').value = '';
+    renderEntryList();
+    renderCalendar();
+    renderDashboard();
+    showToast('✅ 저장되었습니다!');
   };
 
-  window.deleteEntry = async () => {
-    if(!currentDate || !confirm('삭제할까요?')) return;
-    await deleteDoc(doc(db, `users/${currentUser.uid}/diaries`, currentDate));
-    delete diaryEntries[currentDate];
-    closeDiary(); renderDashboard(); showToast('🗑️ 삭제되었습니다.');
+  window.deleteEntry = async (id) => {
+    if (!confirm('삭제할까요?')) return;
+    await deleteDoc(doc(db, `users/${currentUser.uid}/diaries`, id));
+    diaryEntries[currentDate] = diaryEntries[currentDate].filter(e => e.id !== id);
+    if (!diaryEntries[currentDate].length) delete diaryEntries[currentDate];
+    renderEntryList();
+    renderCalendar();
+    renderDashboard();
+    showToast('🗑️ 삭제되었습니다.');
   };
 
   // ── TODO ──
+  window.selectPriority = (p) => {
+    selectedPriority = p;
+    ['urgent','normal','low'].forEach(k => {
+      const btn = document.getElementById(`pBtn-${k}`);
+      btn.className = 'priority-btn';
+      if (k === p) btn.classList.add(`selected-${k}`);
+    });
+  };
+  selectPriority('normal');
+
   window.addTodo = async () => {
     const input = document.getElementById('todoInput');
     const text = input.value.trim();
-    if(!text) return;
+    const dueDate = document.getElementById('todoDueDate').value;
+    if (!text) return;
     const id = Date.now().toString();
-    const todo = { text, done: false, createdAt: new Date().toISOString() };
+    const todo = { text, done: false, priority: selectedPriority, dueDate: dueDate || '', createdAt: new Date().toISOString() };
     await setDoc(doc(db, `users/${currentUser.uid}/todos`, id), todo);
     todos.push({ id, ...todo });
     input.value = '';
-    renderTodos(); renderDashboard(); showToast('✅ 추가되었습니다!');
+    document.getElementById('todoDueDate').value = '';
+    selectPriority('normal');
+    renderTodos();
+    renderCalendar();
+    renderDashboard();
+    showToast('✅ 추가되었습니다!');
   };
 
   window.toggleTodo = async (id) => {
-    const todo = todos.find(t=>t.id===id);
-    if(!todo) return;
+    const todo = todos.find(t => t.id === id);
+    if (!todo) return;
     todo.done = !todo.done;
     await setDoc(doc(db, `users/${currentUser.uid}/todos`, id), todo);
-    renderTodos(); renderDashboard();
+    renderTodos();
+    renderDashboard();
   };
 
   window.deleteTodo = async (id) => {
     await deleteDoc(doc(db, `users/${currentUser.uid}/todos`, id));
-    todos = todos.filter(t=>t.id!==id);
-    renderTodos(); renderDashboard(); showToast('🗑️ 삭제되었습니다.');
+    todos = todos.filter(t => t.id !== id);
+    renderTodos();
+    renderCalendar();
+    renderDashboard();
+    showToast('🗑️ 삭제되었습니다.');
   };
 
   window.filterTodo = (f, btn) => {
     todoFilter = f;
-    document.querySelectorAll('.todo-filter button').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.todo-filter button').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     renderTodos();
   };
 
+  function getDday(dueDate) {
+    if (!dueDate) return null;
+    const today = new Date(); today.setHours(0,0,0,0);
+    const due = new Date(dueDate); due.setHours(0,0,0,0);
+    const diff = Math.round((due - today) / (1000*60*60*24));
+    return diff;
+  }
+
+  function renderDdayBadge(dueDate) {
+    if (!dueDate) return '';
+    const diff = getDday(dueDate);
+    let cls = 'dday-badge';
+    let label = '';
+    if (diff < 0) { cls += ' overdue'; label = `D+${Math.abs(diff)} 초과`; }
+    else if (diff === 0) { cls += ' today-due'; label = 'D-Day'; }
+    else { label = `D-${diff}`; }
+    return `<span class="${cls}">${label} (${dueDate})</span>`;
+  }
+
   function renderTodos() {
     const list = document.getElementById('todoList');
-    let filtered = todos;
-    if(todoFilter==='active') filtered = todos.filter(t=>!t.done);
-    if(todoFilter==='done') filtered = todos.filter(t=>t.done);
-    if(!filtered.length){ list.innerHTML='<div class="search-empty">할 일이 없습니다 🎉</div>'; return; }
+    let filtered = [...todos];
+    if (todoFilter === 'active') filtered = todos.filter(t => !t.done);
+    if (todoFilter === 'done') filtered = todos.filter(t => t.done);
+    if (todoFilter === 'urgent') filtered = todos.filter(t => t.priority === 'urgent' && !t.done);
+    if (!filtered.length) { list.innerHTML = '<div class="search-empty">항목이 없습니다 🎉</div>'; return; }
+    const priorityLabel = { urgent: '🔴 긴급', normal: '🟡 보통', low: '🟢 낮음' };
     list.innerHTML = filtered.map(t => `
-      <div class="todo-item ${t.done?'done':''}">
-        <input type="checkbox" ${t.done?'checked':''} onchange="toggleTodo('${t.id}')" />
-        <span>${t.text}</span>
+      <div class="todo-item ${t.priority} ${t.done ? 'done' : ''}">
+        <input type="checkbox" ${t.done ? 'checked' : ''} onchange="toggleTodo('${t.id}')" />
+        <div class="todo-item-info">
+          <div class="todo-text">${t.text}</div>
+          <div class="todo-meta">
+            <span class="priority-badge ${t.priority}">${priorityLabel[t.priority]}</span>
+            ${renderDdayBadge(t.dueDate)}
+          </div>
+        </div>
         <button onclick="deleteTodo('${t.id}')">✕</button>
       </div>`).join('');
   }
@@ -527,32 +670,35 @@
     const title = document.getElementById('resTitle').value.trim();
     const url = document.getElementById('resUrl').value.trim();
     const memo = document.getElementById('resMemo').value.trim();
-    if(!title || !url) return showToast('제목과 링크를 입력해주세요.');
+    if (!title || !url) return showToast('제목과 링크를 입력해주세요.');
     const id = Date.now().toString();
     const res = { title, url, memo, createdAt: new Date().toISOString() };
     await setDoc(doc(db, `users/${currentUser.uid}/resources`, id), res);
     resources.unshift({ id, ...res });
-    document.getElementById('resTitle').value='';
-    document.getElementById('resUrl').value='';
-    document.getElementById('resMemo').value='';
-    renderResources(); renderDashboard(); showToast('✅ 추가되었습니다!');
+    document.getElementById('resTitle').value = '';
+    document.getElementById('resUrl').value = '';
+    document.getElementById('resMemo').value = '';
+    renderResources();
+    renderDashboard();
+    showToast('✅ 추가되었습니다!');
   };
 
   window.deleteResource = async (id) => {
-    if(!confirm('삭제할까요?')) return;
+    if (!confirm('삭제할까요?')) return;
     await deleteDoc(doc(db, `users/${currentUser.uid}/resources`, id));
-    resources = resources.filter(r=>r.id!==id);
-    renderResources(); renderDashboard(); showToast('🗑️ 삭제되었습니다.');
+    resources = resources.filter(r => r.id !== id);
+    renderResources();
+    renderDashboard();
+    showToast('🗑️ 삭제되었습니다.');
   };
 
   function renderResources() {
     const list = document.getElementById('resourceList');
-    if(!resources.length){ list.innerHTML='<div class="search-empty">자료가 없습니다.</div>'; return; }
+    if (!resources.length) { list.innerHTML = '<div class="search-empty">자료가 없습니다.</div>'; return; }
     list.innerHTML = resources.map(r => `
       <div class="resource-item">
-        <div class="resource-icon">🔗</div>
         <div class="resource-info">
-          <a href="${r.url}" target="_blank">${r.title}</a>
+          <a href="${r.url}" target="_blank">🔗 ${r.title}</a>
           <p>${r.memo || ''}</p>
         </div>
         <button onclick="deleteResource('${r.id}')">✕</button>
@@ -563,61 +709,77 @@
   window.doSearch = () => {
     const q = document.getElementById('searchInput').value.trim().toLowerCase();
     const results = document.getElementById('searchResults');
-    if(!q){ results.innerHTML='<div class="search-empty">검색어를 입력해주세요.</div>'; return; }
-    const diaryResults = Object.entries(diaryEntries)
-      .filter(([k,v]) => v.toLowerCase().includes(q) || k.includes(q))
-      .sort((a,b) => b[0].localeCompare(a[0]));
-    const resourceResults = resources.filter(r => r.title.toLowerCase().includes(q) || (r.memo||'').toLowerCase().includes(q));
-    if(!diaryResults.length && !resourceResults.length){
-      results.innerHTML='<div class="search-empty">검색 결과가 없습니다.</div>'; return;
-    }
+    if (!q) { results.innerHTML = '<div class="search-empty">검색어를 입력해주세요.</div>'; return; }
     let html = '';
-    diaryResults.forEach(([date, content]) => {
-      html += `<div class="search-result" onclick="goToDiary('${date}')">
-        <div class="date">📅 ${date}</div>
-        <div class="preview">${content.substring(0,100)}${content.length>100?'...':''}</div>
-      </div>`;
+    Object.entries(diaryEntries).sort((a,b) => b[0].localeCompare(a[0])).forEach(([date, entries]) => {
+      entries.forEach(e => {
+        if (e.title.toLowerCase().includes(q) || e.content.toLowerCase().includes(q)) {
+          html += `<div class="search-result" onclick="goToDiary('${date}')">
+            <div class="s-date">📅 ${date}</div>
+            <div class="s-title">${e.title}</div>
+            <div class="s-preview">${e.content.substring(0,80)}${e.content.length>80?'...':''}</div>
+          </div>`;
+        }
+      });
     });
-    resourceResults.forEach(r => {
+    resources.filter(r => r.title.toLowerCase().includes(q) || (r.memo||'').toLowerCase().includes(q)).forEach(r => {
       html += `<div class="search-result">
-        <div class="date">🗂️ 자료실</div>
-        <div class="preview"><a href="${r.url}" target="_blank">${r.title}</a> ${r.memo?'— '+r.memo:''}</div>
+        <div class="s-date">🗂️ 자료실</div>
+        <div class="s-title"><a href="${r.url}" target="_blank">${r.title}</a></div>
+        <div class="s-preview">${r.memo || ''}</div>
       </div>`;
     });
-    results.innerHTML = html;
+    results.innerHTML = html || '<div class="search-empty">검색 결과가 없습니다.</div>';
   };
 
   window.goToDiary = (date) => {
-    const [y,m] = date.split('-');
-    calYear = parseInt(y); calMonth = parseInt(m)-1;
+    const [y, m] = date.split('-');
+    calYear = parseInt(y); calMonth = parseInt(m) - 1;
     showPage('calendar');
     setTimeout(() => openDiary(date), 100);
   };
 
   // ── 대시보드 ──
   function renderDashboard() {
-    document.getElementById('statDiary').textContent = Object.keys(diaryEntries).length;
-    document.getElementById('statTodoDone').textContent = todos.filter(t=>t.done).length;
-    document.getElementById('statTodoLeft').textContent = todos.filter(t=>!t.done).length;
+    const totalDiary = Object.values(diaryEntries).reduce((s, arr) => s + arr.length, 0);
+    document.getElementById('statDiary').textContent = totalDiary;
+    document.getElementById('statTodoDone').textContent = todos.filter(t => t.done).length;
+    document.getElementById('statTodoLeft').textContent = todos.filter(t => !t.done).length;
     document.getElementById('statResource').textContent = resources.length;
-    const recent = Object.entries(diaryEntries).sort((a,b)=>b[0].localeCompare(a[0])).slice(0,5);
-    const list = document.getElementById('recentList');
-    if(!recent.length){ list.innerHTML='<div class="search-empty">기록이 없습니다.</div>'; return; }
-    list.innerHTML = recent.map(([date,content]) => `
-      <div class="recent-item" onclick="goToDiary('${date}')">
-        <div class="recent-date">${date}</div>
-        <div class="recent-text">${content.substring(0,60)}...</div>
-      </div>`).join('');
+
+    const allEntries = Object.entries(diaryEntries)
+      .sort((a,b) => b[0].localeCompare(a[0]))
+      .flatMap(([date, entries]) => entries.map(e => ({ date, ...e })))
+      .slice(0, 5);
+    const recentList = document.getElementById('recentList');
+    recentList.innerHTML = allEntries.length
+      ? allEntries.map(e => `<div class="recent-item" onclick="goToDiary('${e.date}')">
+          <div class="recent-date">${e.date}</div>
+          <div class="recent-text">${e.title}</div>
+        </div>`).join('')
+      : '<div class="search-empty">기록이 없습니다.</div>';
+
+    const urgent = todos.filter(t => t.priority === 'urgent' && !t.done);
+    const urgentList = document.getElementById('urgentList');
+    urgentList.innerHTML = urgent.length
+      ? urgent.map(t => `<div class="todo-item urgent" style="margin-bottom:8px;">
+          <input type="checkbox" onchange="toggleTodo('${t.id}')" />
+          <div class="todo-item-info">
+            <div class="todo-text">${t.text}</div>
+            <div class="todo-meta">${renderDdayBadge(t.dueDate)}</div>
+          </div>
+        </div>`).join('')
+      : '<div class="search-empty">긴급 항목이 없습니다.</div>';
   }
 
   // ── 페이지 전환 ──
   window.showPage = (name) => {
-    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-    document.querySelectorAll('.sidebar nav a').forEach(a=>a.classList.remove('active'));
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.sidebar nav a').forEach(a => a.classList.remove('active'));
     document.getElementById(`page-${name}`).classList.add('active');
     document.getElementById(`nav-${name}`).classList.add('active');
-    if(name==='dashboard') renderDashboard();
-    if(name==='calendar') renderCalendar();
+    if (name === 'dashboard') renderDashboard();
+    if (name === 'calendar') renderCalendar();
   };
 
   // ── 토스트 ──
