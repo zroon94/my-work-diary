@@ -871,6 +871,7 @@
         <div class="report-day-title">${key} (${dayNames[d.getDay()]})</div>
         ${entries.map(e => `<div class="report-entry-row">📄 ${e.title}</div>`).join('')}
         ${dayTodos.map(t => `<div class="report-todo-row ${t.done ? '' : 'undone'}">${t.done ? '✅' : '⬜'} ${t.text || '(내용 없음)'}</div>`).join('')}
+      </div>`;
     });
 
     document.getElementById('reportStats').innerHTML = `
