@@ -190,6 +190,27 @@
   .recent-item:hover { background: var(--border); }
   .recent-date { font-size: 0.8rem; color: var(--primary); font-weight: 700; min-width: 80px; }
   .recent-text { font-size: 0.9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* ── 채팅 ── */
+  .chat-wrap { display: flex; flex-direction: column; height: 600px; }
+  .chat-messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; background: var(--bg); border-radius: 12px; margin-bottom: 16px; }
+  .chat-msg { display: flex; flex-direction: column; max-width: 70%; }
+  .chat-msg.me { align-self: flex-end; align-items: flex-end; }
+  .chat-msg.other { align-self: flex-start; align-items: flex-start; }
+  .chat-sender { font-size: 0.75rem; color: var(--sub); margin-bottom: 4px; font-weight: 600; }
+  .chat-bubble { padding: 10px 14px; border-radius: 14px; font-size: 0.92rem; line-height: 1.5; word-break: break-word; }
+  .chat-msg.me .chat-bubble { background: var(--primary); color: white; border-bottom-right-radius: 4px; }
+  .chat-msg.other .chat-bubble { background: white; color: var(--text); border-bottom-left-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .chat-time { font-size: 0.72rem; color: var(--sub); margin-top: 4px; }
+  .chat-delete-btn { background: none; border: none; color: rgba(255,255,255,0.6); cursor: pointer; font-size: 0.75rem; margin-top: 2px; padding: 0; }
+  .chat-delete-btn:hover { color: white; }
+  .chat-input-row { display: flex; gap: 8px; }
+  .chat-input-row input { flex: 1; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
+  .chat-input-row input:focus { border-color: var(--primary); }
+  .chat-date-divider { text-align: center; font-size: 0.78rem; color: var(--sub); padding: 4px 0; position: relative; }
+  .chat-date-divider span { background: var(--bg); padding: 0 10px; position: relative; z-index: 1; }
+  .chat-date-divider::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--border); }
+
   .toast { position: fixed; bottom: 30px; right: 30px; background: #1e2a45; color: white; padding: 12px 24px; border-radius: 10px; font-size: 0.92rem; z-index: 9999; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
   .toast.show { opacity: 1; }
 </style>
@@ -231,9 +252,11 @@
         <a onclick="showPage('memo')" id="nav-memo">📝 메모장</a>
         <a onclick="showPage('resources')" id="nav-resources">🗂️ 자료실</a>
         <a onclick="showPage('report')" id="nav-report">📊 주간 리포트</a>
+        <a onclick="showPage('chat')" id="nav-chat">💬 채팅</a>
         <a onclick="showPage('search')" id="nav-search">🔍 검색</a>
       </nav>
       <div class="sidebar-bottom">
+        <div id="currentUserEmail" style="font-size:0.78rem; color:var(--sidebar-t); margin-bottom:10px; padding: 0 4px; word-break:break-all;"></div>
         <button onclick="doLogout()">🚪 로그아웃</button>
       </div>
     </aside>
@@ -347,6 +370,19 @@
         </div>
       </div>
 
+      <div class="page" id="page-chat">
+        <div class="page-title">💬 채팅</div>
+        <div class="card">
+          <div class="chat-wrap">
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="chat-input-row">
+              <input type="text" id="chatInput" placeholder="메시지를 입력하세요..." onkeydown="if(event.key==='Enter') sendChat()" />
+              <button class="btn btn-primary" onclick="sendChat()">전송</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="page" id="page-search">
         <div class="page-title">🔍 검색</div>
         <div class="card">
@@ -368,7 +404,7 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-  import { getFirestore, collection, doc, setDoc, getDocs, deleteDoc, query, orderBy, addDoc }
+  import { getFirestore, collection, doc, setDoc, getDocs, deleteDoc, query, orderBy, addDoc, onSnapshot, serverTimestamp }
     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
   // ✅ 여기에 본인의 firebaseConfig 붙여넣기
@@ -385,6 +421,9 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
 
+  // ✅ 공통 데이터 경로 (둘이 공유)
+  const SHARED = 'shared';
+
   let currentUser = null;
   let currentDate = null;
   let calYear = new Date().getFullYear();
@@ -396,24 +435,27 @@
   let todoFilter = 'all';
   let selectedPriority = 'normal';
   let reportWeekOffset = 0;
+  let chatUnsub = null;
 
-  onAuthStateChanged(auth, async (user) => {
+  onAuthStateChanged(auth, async function(user) {
     if (user) {
       currentUser = user;
       document.getElementById('loginPage').style.display = 'none';
       document.getElementById('app').style.display = 'block';
+      document.getElementById('currentUserEmail').textContent = user.email;
       await loadAll();
       renderCalendar();
       renderDashboard();
       showPage('dashboard');
       showBriefing();
     } else {
+      if (chatUnsub) { chatUnsub(); chatUnsub = null; }
       document.getElementById('loginPage').style.display = 'flex';
       document.getElementById('app').style.display = 'none';
     }
   });
 
-  window.doLogin = async () => {
+  window.doLogin = async function() {
     const email = document.getElementById('loginEmail').value.trim();
     const pw = document.getElementById('loginPw').value;
     const err = document.getElementById('loginError');
@@ -422,7 +464,10 @@
     catch(e) { err.style.display = 'block'; }
   };
 
-  window.doLogout = async () => { await signOut(auth); };
+  window.doLogout = async function() {
+    if (chatUnsub) { chatUnsub(); chatUnsub = null; }
+    await signOut(auth);
+  };
 
   async function loadAll() {
     await Promise.all([loadDiaries(), loadTodos(), loadResources(), loadMemos()]);
@@ -430,8 +475,8 @@
 
   async function loadDiaries() {
     diaryEntries = {};
-    const snap = await getDocs(collection(db, `users/${currentUser.uid}/diaries`));
-    snap.forEach(d => {
+    const snap = await getDocs(collection(db, SHARED + '/data/diaries'));
+    snap.forEach(function(d) {
       const data = d.data();
       if (!diaryEntries[data.date]) diaryEntries[data.date] = [];
       diaryEntries[data.date].push({ id: d.id, ...data });
@@ -440,53 +485,102 @@
 
   async function loadTodos() {
     todos = [];
-    const q = query(collection(db, `users/${currentUser.uid}/todos`), orderBy('createdAt'));
+    const q = query(collection(db, SHARED + '/data/todos'), orderBy('createdAt'));
     const snap = await getDocs(q);
-    snap.forEach(d => todos.push({ id: d.id, ...d.data() }));
+    snap.forEach(function(d) { todos.push({ id: d.id, ...d.data() }); });
     renderTodos();
   }
 
   async function loadResources() {
     resources = [];
-    const q = query(collection(db, `users/${currentUser.uid}/resources`), orderBy('createdAt', 'desc'));
+    const q = query(collection(db, SHARED + '/data/resources'), orderBy('createdAt', 'desc'));
     const snap = await getDocs(q);
-    snap.forEach(d => resources.push({ id: d.id, ...d.data() }));
+    snap.forEach(function(d) { resources.push({ id: d.id, ...d.data() }); });
     renderResources();
   }
 
   async function loadMemos() {
     memos = [];
-    const q = query(collection(db, `users/${currentUser.uid}/memos`), orderBy('createdAt', 'desc'));
+    const q = query(collection(db, SHARED + '/data/memos'), orderBy('createdAt', 'desc'));
     const snap = await getDocs(q);
-    snap.forEach(d => memos.push({ id: d.id, ...d.data() }));
+    snap.forEach(function(d) { memos.push({ id: d.id, ...d.data() }); });
     renderMemos();
   }
 
+  // ── 채팅 실시간 ──
+  function initChat() {
+    if (chatUnsub) return;
+    const q = query(collection(db, SHARED + '/data/chats'), orderBy('createdAt'));
+    chatUnsub = onSnapshot(q, function(snap) {
+      const box = document.getElementById('chatMessages');
+      let html = '';
+      let lastDate = '';
+      snap.forEach(function(d) {
+        const m = d.data();
+        const isMe = m.uid === currentUser.uid;
+        const dt = m.createdAt ? m.createdAt.toDate() : new Date();
+        const dateStr = dt.getFullYear() + '-' + String(dt.getMonth()+1).padStart(2,'0') + '-' + String(dt.getDate()).padStart(2,'0');
+        const timeStr = String(dt.getHours()).padStart(2,'0') + ':' + String(dt.getMinutes()).padStart(2,'0');
+        if (dateStr !== lastDate) {
+          html += '<div class="chat-date-divider"><span>' + dateStr + '</span></div>';
+          lastDate = dateStr;
+        }
+        html += '<div class="chat-msg ' + (isMe ? 'me' : 'other') + '">';
+        if (!isMe) html += '<div class="chat-sender">' + (m.email || '') + '</div>';
+        html += '<div class="chat-bubble">' + m.text + '</div>';
+        html += '<div class="chat-time">' + timeStr;
+        if (isMe) html += ' <button class="chat-delete-btn" onclick="deleteChat(\'' + d.id + '\')">삭제</button>';
+        html += '</div></div>';
+      });
+      box.innerHTML = html || '<div class="search-empty">아직 메시지가 없어요. 첫 메시지를 보내보세요!</div>';
+      box.scrollTop = box.scrollHeight;
+    });
+  }
+
+  window.sendChat = async function() {
+    const input = document.getElementById('chatInput');
+    const text = input.value.trim();
+    if (!text) return;
+    await addDoc(collection(db, SHARED + '/data/chats'), {
+      text: text,
+      uid: currentUser.uid,
+      email: currentUser.email,
+      createdAt: serverTimestamp()
+    });
+    input.value = '';
+  };
+
+  window.deleteChat = async function(id) {
+    if (!confirm('메시지를 삭제할까요?')) return;
+    await deleteDoc(doc(db, SHARED + '/data/chats', id));
+  };
+
+  // ── 브리핑 ──
   function showBriefing() {
     const today = getTodayKey();
-    const todayTodos = todos.filter(t => t.dueDate === today && !t.done);
-    const urgentTodos = todos.filter(t => t.priority === 'urgent' && !t.done);
-    const overdueTodos = todos.filter(t => {
+    const todayTodos = todos.filter(function(t) { return t.dueDate === today && !t.done; });
+    const urgentTodos = todos.filter(function(t) { return t.priority === 'urgent' && !t.done; });
+    const overdueTodos = todos.filter(function(t) {
       if (!t.dueDate || t.done) return false;
       return getDday(t.dueDate) < 0;
     });
     const hasEntry = !!(diaryEntries[today] && diaryEntries[today].length);
     let html = '';
-    html += `<div class="briefing-section"><h4>📅 오늘</h4><div class="briefing-item ok">${today} (${['일','월','화','수','목','금','토'][new Date().getDay()]}요일)</div></div>`;
-    html += `<div class="briefing-section"><h4>📝 오늘 업무 기록</h4><div class="briefing-item ${hasEntry ? 'ok' : 'warn'}">${hasEntry ? '✅ ' + diaryEntries[today].length + '개 기록 있음' : '⚠️ 아직 오늘 업무 기록이 없어요!'}</div></div>`;
+    html += '<div class="briefing-section"><h4>📅 오늘</h4><div class="briefing-item ok">' + today + ' (' + ['일','월','화','수','목','금','토'][new Date().getDay()] + '요일)</div></div>';
+    html += '<div class="briefing-section"><h4>📝 오늘 업무 기록</h4><div class="briefing-item ' + (hasEntry ? 'ok' : 'warn') + '">' + (hasEntry ? '✅ ' + diaryEntries[today].length + '개 기록 있음' : '⚠️ 아직 오늘 업무 기록이 없어요!') + '</div></div>';
     if (todayTodos.length) {
       html += '<div class="briefing-section"><h4>📌 오늘 마감 TODO</h4>';
-      todayTodos.forEach(t => { html += '<div class="briefing-item ' + (t.priority === 'urgent' ? 'urgent' : 'warn') + '">' + (t.priority === 'urgent' ? '🔴' : '🟡') + ' ' + t.text + '</div>'; });
+      todayTodos.forEach(function(t) { html += '<div class="briefing-item ' + (t.priority === 'urgent' ? 'urgent' : 'warn') + '">' + (t.priority === 'urgent' ? '🔴' : '🟡') + ' ' + t.text + '</div>'; });
       html += '</div>';
     }
     if (urgentTodos.length) {
       html += '<div class="briefing-section"><h4>🔴 미완료 긴급 TODO</h4>';
-      urgentTodos.forEach(t => { html += '<div class="briefing-item urgent">🔴 ' + t.text + (t.dueDate ? ' (' + renderDdayText(t.dueDate) + ')' : '') + '</div>'; });
+      urgentTodos.forEach(function(t) { html += '<div class="briefing-item urgent">🔴 ' + t.text + (t.dueDate ? ' (' + renderDdayText(t.dueDate) + ')' : '') + '</div>'; });
       html += '</div>';
     }
     if (overdueTodos.length) {
       html += '<div class="briefing-section"><h4>⚠️ 기한 초과 TODO</h4>';
-      overdueTodos.forEach(t => { html += '<div class="briefing-item urgent">⏰ ' + t.text + ' (' + renderDdayText(t.dueDate) + ')</div>'; });
+      overdueTodos.forEach(function(t) { html += '<div class="briefing-item urgent">⏰ ' + t.text + ' (' + renderDdayText(t.dueDate) + ')</div>'; });
       html += '</div>';
     }
     if (!todayTodos.length && !urgentTodos.length && !overdueTodos.length && hasEntry) {
@@ -496,16 +590,16 @@
     document.getElementById('briefingModal').classList.remove('hidden');
   }
 
-  window.closeBriefing = () => { document.getElementById('briefingModal').classList.add('hidden'); };
+  window.closeBriefing = function() { document.getElementById('briefingModal').classList.add('hidden'); };
 
-  window.changeMonth = (dir) => {
+  window.changeMonth = function(dir) {
     calMonth += dir;
     if (calMonth > 11) { calMonth = 0; calYear++; }
     else if (calMonth < 0) { calMonth = 11; calYear--; }
     renderCalendar();
   };
 
-  window.goToday = () => { calYear = new Date().getFullYear(); calMonth = new Date().getMonth(); renderCalendar(); };
+  window.goToday = function() { calYear = new Date().getFullYear(); calMonth = new Date().getMonth(); renderCalendar(); };
 
   function renderCalendar() {
     const months = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
@@ -595,9 +689,9 @@
     const content = document.getElementById('entryContent').value.trim();
     if (!title) return showToast('제목을 입력해주세요.');
     if (!content) return showToast('내용을 입력해주세요.');
-    const ref = await addDoc(collection(db, 'users/' + currentUser.uid + '/diaries'), { date: currentDate, title: title, content: content, createdAt: new Date().toISOString() });
+    const ref = await addDoc(collection(db, SHARED + '/data/diaries'), { date: currentDate, title: title, content: content, author: currentUser.email, createdAt: new Date().toISOString() });
     if (!diaryEntries[currentDate]) diaryEntries[currentDate] = [];
-    diaryEntries[currentDate].push({ id: ref.id, date: currentDate, title: title, content: content });
+    diaryEntries[currentDate].push({ id: ref.id, date: currentDate, title: title, content: content, author: currentUser.email });
     document.getElementById('entryTitle').value = '';
     document.getElementById('entryContent').value = '';
     renderEntryList(); renderCalendar(); renderDashboard();
@@ -606,7 +700,7 @@
 
   window.deleteEntry = async function(id) {
     if (!confirm('삭제할까요?')) return;
-    await deleteDoc(doc(db, 'users/' + currentUser.uid + '/diaries', id));
+    await deleteDoc(doc(db, SHARED + '/data/diaries', id));
     diaryEntries[currentDate] = diaryEntries[currentDate].filter(function(e) { return e.id !== id; });
     if (!diaryEntries[currentDate].length) delete diaryEntries[currentDate];
     renderEntryList(); renderCalendar(); renderDashboard();
@@ -629,8 +723,8 @@
     const dueDate = document.getElementById('todoDueDate').value;
     if (!text) return;
     const id = Date.now().toString();
-    const todo = { text: text, done: false, priority: selectedPriority, dueDate: dueDate || '', createdAt: new Date().toISOString() };
-    await setDoc(doc(db, 'users/' + currentUser.uid + '/todos', id), todo);
+    const todo = { text: text, done: false, priority: selectedPriority, dueDate: dueDate || '', author: currentUser.email, createdAt: new Date().toISOString() };
+    await setDoc(doc(db, SHARED + '/data/todos', id), todo);
     todos.push(Object.assign({ id: id }, todo));
     input.value = ''; document.getElementById('todoDueDate').value = '';
     selectPriority('normal'); renderTodos(); renderCalendar(); renderDashboard();
@@ -640,12 +734,12 @@
   window.toggleTodo = async function(id) {
     const todo = todos.find(function(t) { return t.id === id; }); if (!todo) return;
     todo.done = !todo.done;
-    await setDoc(doc(db, 'users/' + currentUser.uid + '/todos', id), todo);
+    await setDoc(doc(db, SHARED + '/data/todos', id), todo);
     renderTodos(); renderDashboard();
   };
 
   window.deleteTodo = async function(id) {
-    await deleteDoc(doc(db, 'users/' + currentUser.uid + '/todos', id));
+    await deleteDoc(doc(db, SHARED + '/data/todos', id));
     todos = todos.filter(function(t) { return t.id !== id; });
     renderTodos(); renderCalendar(); renderDashboard();
     showToast('🗑️ 삭제되었습니다.');
@@ -690,7 +784,7 @@
     if (!filtered.length) { list.innerHTML = '<div class="search-empty">항목이 없습니다 🎉</div>'; return; }
     const pl = { urgent: '🔴 긴급', normal: '🟡 보통', low: '🟢 낮음' };
     list.innerHTML = filtered.map(function(t) {
-      return '<div class="todo-item ' + t.priority + ' ' + (t.done ? 'done' : '') + '"><input type="checkbox" ' + (t.done ? 'checked' : '') + ' onchange="toggleTodo(\'' + t.id + '\')" /><div class="todo-item-info"><div class="todo-text">' + (t.text || '') + '</div><div class="todo-meta"><span class="priority-badge ' + t.priority + '">' + pl[t.priority] + '</span>' + renderDdayBadge(t.dueDate) + '</div></div><button onclick="deleteTodo(\'' + t.id + '\')">✕</button></div>';
+      return '<div class="todo-item ' + t.priority + ' ' + (t.done ? 'done' : '') + '"><input type="checkbox" ' + (t.done ? 'checked' : '') + ' onchange="toggleTodo(\'' + t.id + '\')" /><div class="todo-item-info"><div class="todo-text">' + (t.text || '') + '</div><div class="todo-meta"><span class="priority-badge ' + t.priority + '">' + pl[t.priority] + '</span>' + renderDdayBadge(t.dueDate) + (t.author ? '<span style="font-size:0.72rem;color:var(--sub);">✍️ ' + t.author + '</span>' : '') + '</div></div><button onclick="deleteTodo(\'' + t.id + '\')">✕</button></div>';
     }).join('');
   }
 
@@ -700,8 +794,8 @@
 
   window.addMemo = async function() {
     const id = Date.now().toString();
-    const memo = { title: '', content: '', color: 'yellow', createdAt: new Date().toISOString() };
-    await setDoc(doc(db, 'users/' + currentUser.uid + '/memos', id), memo);
+    const memo = { title: '', content: '', color: 'yellow', author: currentUser.email, createdAt: new Date().toISOString() };
+    await setDoc(doc(db, SHARED + '/data/memos', id), memo);
     memos.unshift(Object.assign({ id: id }, memo));
     renderMemos();
   };
@@ -712,20 +806,20 @@
     const contentEl = document.getElementById('mContent-' + id);
     if (titleEl) memo.title = titleEl.value;
     if (contentEl) memo.content = contentEl.value;
-    await setDoc(doc(db, 'users/' + currentUser.uid + '/memos', id), memo);
+    await setDoc(doc(db, SHARED + '/data/memos', id), memo);
     showToast('✅ 메모 저장됨!');
   };
 
   window.changeMemoColor = async function(id, color) {
     const memo = memos.find(function(m) { return m.id === id; }); if (!memo) return;
     memo.color = color;
-    await setDoc(doc(db, 'users/' + currentUser.uid + '/memos', id), memo);
+    await setDoc(doc(db, SHARED + '/data/memos', id), memo);
     renderMemos();
   };
 
   window.deleteMemo = async function(id) {
     if (!confirm('메모를 삭제할까요?')) return;
-    await deleteDoc(doc(db, 'users/' + currentUser.uid + '/memos', id));
+    await deleteDoc(doc(db, SHARED + '/data/memos', id));
     memos = memos.filter(function(m) { return m.id !== id; });
     renderMemos(); showToast('🗑️ 삭제되었습니다.');
   };
@@ -733,7 +827,7 @@
   function renderMemos() {
     const grid = document.getElementById('memoGrid');
     let html = memos.map(function(m) {
-      return '<div class="memo-card ' + (colorMap[m.color] || '') + '"><input class="memo-card-title" id="mTitle-' + m.id + '" value="' + (m.title || '') + '" placeholder="제목" onblur="saveMemo(\'' + m.id + '\')" /><textarea class="memo-card-content" id="mContent-' + m.id + '" placeholder="자유롭게 메모하세요..." onblur="saveMemo(\'' + m.id + '\')">' + (m.content || '') + '</textarea><div class="memo-card-footer"><span class="memo-card-date">' + (m.createdAt ? m.createdAt.substring(0,10) : '') + '</span><div class="memo-card-actions">' + memoColors.map(function(c) { return '<div class="memo-color-btn" style="background:' + colorHex[c] + ';' + (m.color===c ? 'border-color:#333;transform:scale(1.2);' : '') + '" onclick="changeMemoColor(\'' + m.id + '\',\'' + c + '\')"></div>'; }).join('') + '<button class="memo-delete-btn" onclick="deleteMemo(\'' + m.id + '\')">🗑️</button></div></div></div>';
+      return '<div class="memo-card ' + (colorMap[m.color] || '') + '"><input class="memo-card-title" id="mTitle-' + m.id + '" value="' + (m.title || '') + '" placeholder="제목" onblur="saveMemo(\'' + m.id + '\')" /><textarea class="memo-card-content" id="mContent-' + m.id + '" placeholder="자유롭게 메모하세요..." onblur="saveMemo(\'' + m.id + '\')">' + (m.content || '') + '</textarea><div class="memo-card-footer"><span class="memo-card-date">' + (m.author ? m.author + ' · ' : '') + (m.createdAt ? m.createdAt.substring(0,10) : '') + '</span><div class="memo-card-actions">' + memoColors.map(function(c) { return '<div class="memo-color-btn" style="background:' + colorHex[c] + ';' + (m.color===c ? 'border-color:#333;transform:scale(1.2);' : '') + '" onclick="changeMemoColor(\'' + m.id + '\',\'' + c + '\')"></div>'; }).join('') + '<button class="memo-delete-btn" onclick="deleteMemo(\'' + m.id + '\')">🗑️</button></div></div></div>';
     }).join('');
     html += '<div class="memo-add-btn" onclick="addMemo()">+</div>';
     grid.innerHTML = html;
@@ -778,8 +872,8 @@
       undoneTodos += dayTodos.filter(function(t) { return !t.done; }).length;
       if (!entries.length && !dayTodos.length) return;
       bodyHtml += '<div class="report-day"><div class="report-day-title">' + key + ' (' + dayNames[d.getDay()] + ')</div>';
-      entries.forEach(function(e) { bodyHtml += '<div class="report-entry-row">📄 ' + (e.title || e.content || '(내용 없음)') + '</div>'; });
-      dayTodos.forEach(function(t) { bodyHtml += '<div class="report-todo-row ' + (t.done ? '' : 'undone') + '">' + (t.done ? '✅' : '⬜') + ' ' + (t.text || '') + '</div>'; });
+      entries.forEach(function(e) { bodyHtml += '<div class="report-entry-row">📄 ' + (e.title || e.content || '') + (e.author ? ' <span style="font-size:0.78rem;color:var(--sub);">— ' + e.author + '</span>' : '') + '</div>'; });
+      dayTodos.forEach(function(t) { bodyHtml += '<div class="report-todo-row ' + (t.done ? '' : 'undone') + '">' + (t.done ? '✅' : '⬜') + ' ' + (t.text || '') + (t.author ? ' <span style="font-size:0.78rem;opacity:0.7;">— ' + t.author + '</span>' : '') + '</div>'; });
       bodyHtml += '</div>';
     });
     document.getElementById('reportStats').innerHTML = '<div class="report-stat"><div class="r-label">📝 업무 기록</div><div class="r-value">' + totalEntries + '</div></div><div class="report-stat"><div class="r-label">✅ 완료 TODO</div><div class="r-value">' + doneTodos + '</div></div><div class="report-stat"><div class="r-label">📌 미완료 TODO</div><div class="r-value">' + undoneTodos + '</div></div><div class="report-stat"><div class="r-label">📅 기록한 날</div><div class="r-value">' + days.filter(function(d) { return (diaryEntries[dateToKey(d)] || []).length > 0; }).length + '일</div></div>';
@@ -792,8 +886,8 @@
     const memo = document.getElementById('resMemo').value.trim();
     if (!title || !url) return showToast('제목과 링크를 입력해주세요.');
     const id = Date.now().toString();
-    const res = { title: title, url: url, memo: memo, createdAt: new Date().toISOString() };
-    await setDoc(doc(db, 'users/' + currentUser.uid + '/resources', id), res);
+    const res = { title: title, url: url, memo: memo, author: currentUser.email, createdAt: new Date().toISOString() };
+    await setDoc(doc(db, SHARED + '/data/resources', id), res);
     resources.unshift(Object.assign({ id: id }, res));
     document.getElementById('resTitle').value = '';
     document.getElementById('resUrl').value = '';
@@ -803,7 +897,7 @@
 
   window.deleteResource = async function(id) {
     if (!confirm('삭제할까요?')) return;
-    await deleteDoc(doc(db, 'users/' + currentUser.uid + '/resources', id));
+    await deleteDoc(doc(db, SHARED + '/data/resources', id));
     resources = resources.filter(function(r) { return r.id !== id; });
     renderResources(); renderDashboard(); showToast('🗑️ 삭제되었습니다.');
   };
@@ -812,7 +906,7 @@
     const list = document.getElementById('resourceList');
     if (!resources.length) { list.innerHTML = '<div class="search-empty">자료가 없습니다.</div>'; return; }
     list.innerHTML = resources.map(function(r) {
-      return '<div class="resource-item"><div class="resource-info"><a href="' + r.url + '" target="_blank">🔗 ' + r.title + '</a><p>' + (r.memo || '') + '</p></div><button onclick="deleteResource(\'' + r.id + '\')">✕</button></div>';
+      return '<div class="resource-item"><div class="resource-info"><a href="' + r.url + '" target="_blank">🔗 ' + r.title + '</a><p>' + (r.memo || '') + (r.author ? ' · ' + r.author : '') + '</p></div><button onclick="deleteResource(\'' + r.id + '\')">✕</button></div>';
     }).join('');
   }
 
@@ -875,6 +969,7 @@
     if (name === 'calendar') renderCalendar();
     if (name === 'report') renderReport();
     if (name === 'memo') renderMemos();
+    if (name === 'chat') initChat();
   };
 
   window.showToast = function(msg) {
