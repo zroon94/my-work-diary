@@ -870,8 +870,7 @@
       bodyHtml += `<div class="report-day">
         <div class="report-day-title">${key} (${dayNames[d.getDay()]})</div>
         ${entries.map(e => `<div class="report-entry-row">📄 ${e.title}</div>`).join('')}
-        ${dayTodos.map(t => `<div class="report-todo-row ${t.done ? '' : 'undone'}">${t.done ? '✅' : '⬜'} ${t.text}</div>`).join('')}
-      </div>`;
+        ${dayTodos.map(t => `<div class="report-todo-row ${t.done ? '' : 'undone'}">${t.done ? '✅' : '⬜'} ${t.text || '(내용 없음)'}</div>`).join('')}
     });
 
     document.getElementById('reportStats').innerHTML = `
@@ -966,7 +965,7 @@
     const urgent = todos.filter(t => t.priority === 'urgent' && !t.done);
     const pl = { urgent: '🔴 긴급', normal: '🟡 보통', low: '🟢 낮음' };
     document.getElementById('urgentList').innerHTML = urgent.length
-      ? urgent.map(t => `<div class="todo-item urgent"><input type="checkbox" onchange="toggleTodo('${t.id}')"/><div class="todo-item-info"><div class="todo-text">${t.text}</div><div class="todo-meta"><span class="priority-badge urgent">${pl.urgent}</span>${renderDdayBadge(t.dueDate)}</div></div></div>`).join('')
+      ? urgent.map(t => `<div class="todo-item urgent"><input type="checkbox" onchange="toggleTodo('${t.id}')"/><div class="todo-item-info"><div class="todo-text">${t.text || '(내용 없음)'}</div><div class="todo-meta"><span class="priority-badge urgent">${pl.urgent}</span>${renderDdayBadge(t.dueDate)}</div></div></div>`).join('')
       : '<div class="search-empty">긴급 항목이 없습니다.</div>';
   }
 
